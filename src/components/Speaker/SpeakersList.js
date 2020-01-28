@@ -11,8 +11,11 @@ class SpeakerList extends React.Component {
                     <Col>
                         <Card>
                             <Card.Header>
-                                <Card.Title as="h5">Liste des intervenants</Card.Title>
-                                {/* <span className="d-block m-t-5">use props <code>hover</code> with <code>Table</code> component</span> */}
+                                <Card.Title as="h5">Liste des intervenants&nbsp;&nbsp;
+                                    <Button variant="success">
+                                        + Créer un nouvel intervant
+                                    </Button>
+                                </Card.Title>
                             </Card.Header>
                             <Card.Body>
                                 <Table responsive hover>

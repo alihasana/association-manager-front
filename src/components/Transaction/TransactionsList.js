@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Card, Table} from 'react-bootstrap';
+import {Row, Col, Button, Card, Table} from 'react-bootstrap';
 
 import Aux from "../../hoc/_Aux";
 import DEMO from "../../store/constant";
@@ -12,7 +12,11 @@ class TransactionList extends React.Component {
                     <Col md={9} xl={12}>
                         <Card className='Recent-Users'>
                             <Card.Header>
-                                <Card.Title as='h5'>Liste des transactions</Card.Title>
+                                <Card.Title as='h5'>Liste des transactions&nbsp;&nbsp;
+                                    <Button variant="success">
+                                        + Créer une nouvelle transaction
+                                    </Button>
+                                </Card.Title>
                             </Card.Header>
                             <Card.Body className='px-0 py-2'>
                                 <Table responsive hover>

@@ -11,8 +11,11 @@ class AssocationsList extends React.Component {
                     <Col>
                         <Card>
                             <Card.Header>
-                                <Card.Title as="h5">Liste des associations</Card.Title>
-                                {/* <span className="d-block m-t-5">use props <code>hover</code> with <code>Table</code> component</span> */}
+                                <Card.Title as="h5">Liste des associations&nbsp;&nbsp;
+                                    <Button variant="success">
+                                        + Créer un nouvelle association
+                                    </Button>
+                                </Card.Title>
                             </Card.Header>
                             <Card.Body>
                                 <Table responsive hover>

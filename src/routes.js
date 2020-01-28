@@ -14,7 +14,7 @@ const StaffsList = React.lazy(() => import('./components/Staff/StaffsList'));
 const TransactionsList = React.lazy(() => import('./components/Transaction/TransactionsList'));
 // En cours
 const Planning = React.lazy(() => import('./components/CommingSoon'));
-const ProjectsList = React.lazy(() => import('./components/CommingSoon'));
+const ProjectsList = React.lazy(() => import('./components/Project/ProjectsList'));
 
 
 const routes = [

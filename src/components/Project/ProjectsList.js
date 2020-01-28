@@ -1,45 +1,43 @@
 import React from 'react';
-import {Row, Col, Card, Button, Table} from 'react-bootstrap';
+import {Row, Col, Button, Card, Table} from 'react-bootstrap';
 
 import Aux from "../../hoc/_Aux";
 
-import avatar1 from '../../assets/images/user/avatar-1.jpg';
-import avatar2 from '../../assets/images/user/avatar-2.jpg';
-import avatar3 from '../../assets/images/user/avatar-3.jpg';
-
-class StaffsList extends React.Component {
+class ProjectsList extends React.Component {
     render() {
         return (
             <Aux>
                 <Row>
-                    <Col md={9} xl={12}>
-                        <Card className='Recent-Users'>
+                    <Col>
+                        <Card>
                             <Card.Header>
-                                <Card.Title as="h5">Liste des staffs&nbsp;&nbsp;
+                                <Card.Title as="h5">Liste des projets&nbsp;&nbsp;
                                     <Button variant="success">
-                                        + Créer un nouveau staff
+                                        + Créer un nouveau projet
                                     </Button>
                                 </Card.Title>
                             </Card.Header>
-                            <Card.Body className='px-0 py-2'>
+                            <Card.Body>
                                 <Table responsive hover>
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Collaborateurs</th>
+                                        <th>Projet</th>
+                                        <th>Domaine</th>
+                                        <th>Association</th>
+                                        <th>Démarrage</th>
+                                        <th>Fin</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr className="unread">
+                                    <tr>
                                         <th scope="row">1</th>
-                                        <td>
-                                            <img className="rounded-circle" style={{width: '40px'}} src={avatar1} alt="activity-user"/> Jean Yves 
-                                            <br/>
-                                            <img className="rounded-circle" style={{width: '40px'}} src={avatar2} alt="activity-user"/> Manon Louijou
-                                            <br/>
-                                            <img className="rounded-circle" style={{width: '40px'}} src={avatar3} alt="activity-user"/> Manonno Bulot
-                                        </td>
+                                        <td>Fabrication de tablette</td>
+                                        <td>Informatique</td>
+                                        <td>Free Formation</td>
+                                        <td>27/01/2020</td>
+                                        <td>29/01/2020</td>
                                         <td>
                                             <Button variant="secondary">
                                                 <i className="fa fa-eye f-22 m-r-10"/>
@@ -52,12 +50,13 @@ class StaffsList extends React.Component {
                                             </Button>
                                         </td>
                                     </tr>
-                                    <tr className="unread">
+                                    <tr>
                                         <th scope="row">2</th>
-                                        <td>
-                                            <img className="rounded-circle" style={{width: '40px'}} src={avatar1} alt="activity-user"/> Paulette Bago 
-                                            <br/>
-                                            <img className="rounded-circle" style={{width: '40px'}} src={avatar3} alt="activity-user"/> Bodyguard St Lo</td>
+                                        <td>Distribution des tablette</td>
+                                        <td>Soutien scolaire</td>
+                                        <td>Free formation</td>
+                                        <td>30/01/2020</td>
+                                        <td>31/01/2020</td>
                                         <td>
                                             <Button variant="secondary">
                                                 <i className="fa fa-eye f-22 m-r-10"/>
@@ -70,13 +69,13 @@ class StaffsList extends React.Component {
                                             </Button>
                                         </td>
                                     </tr>
-                                    <tr className="unread">
+                                    <tr>
                                         <th scope="row">3</th>
-                                        <td>
-                                            <img className="rounded-circle" style={{width: '40px'}} src={avatar3} alt="activity-user"/> Jean Yves Younes
-                                            <br/> 
-                                            <img className="rounded-circle" style={{width: '40px'}} src={avatar2} alt="activity-user"/> Eddy Badio
-                                        </td>
+                                        <td>Formation sur l'utilisation des tablettes</td>
+                                        <td>Informatique</td>
+                                        <td>Free Formation</td>
+                                        <td>01/02/2020</td>
+                                        <td>05/02/2020</td>
                                         <td>
                                             <Button variant="secondary">
                                                 <i className="fa fa-eye f-22 m-r-10"/>
@@ -100,4 +99,4 @@ class StaffsList extends React.Component {
     }
 }
 
-export default StaffsList;
+export default ProjectsList;

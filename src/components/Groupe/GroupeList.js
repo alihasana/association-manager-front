@@ -15,7 +15,11 @@ class GroupeList extends React.Component {
                     <Col md={9} xl={12}>
                         <Card className='Recent-Users'>
                             <Card.Header>
-                                <Card.Title as="h5">Groupe</Card.Title>
+                                <Card.Title as="h5">Groupe&nbsp;&nbsp;
+                                    <Button variant="success">
+                                        + Créer un nouveau groupe
+                                    </Button>
+                                </Card.Title>
                             </Card.Header>
                             <Card.Body className='px-0 py-2'>
                                 <Table responsive hover>
