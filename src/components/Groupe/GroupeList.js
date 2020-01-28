@@ -29,6 +29,7 @@ class GroupeList extends React.Component {
                                             <th>Avatar</th>
                                             <th>Nom</th>
                                             <th>Prénom</th>
+                                            <th>Rôle</th>
                                             <th>Date d'entrée</th>
                                             <th>Actions</th>
                                         </tr>
@@ -39,6 +40,7 @@ class GroupeList extends React.Component {
                                             <td><img className="rounded-circle" style={{width: '40px'}} src={avatar1} alt="activity-user"/></td> 
                                             <td>Jean</td>
                                             <td>Yves</td>
+                                            <td>Directeur</td>
                                             <td>27/01/2020</td>
                                             <td>
                                                 <Button variant="secondary">
@@ -57,6 +59,7 @@ class GroupeList extends React.Component {
                                             <td><img className="rounded-circle" style={{width: '40px'}} src={avatar2} alt="activity-user"/></td> 
                                             <td>Jean</td>
                                             <td>Paul</td>
+                                            <td>Sous directeur</td>
                                             <td>27/01/2020</td>
                                             <td>
                                                 <Button variant="secondary">
@@ -75,6 +78,7 @@ class GroupeList extends React.Component {
                                             <td><img className="rounded-circle" style={{width: '40px'}} src={avatar3} alt="activity-user"/></td> 
                                             <td>Stéphanie</td>
                                             <td>Richard</td>
+                                            <td>RH</td>
                                             <td>27/01/2020</td>
                                             <td>
                                                 <Button variant="secondary">
