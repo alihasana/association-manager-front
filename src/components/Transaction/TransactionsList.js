@@ -1,10 +1,22 @@
 import React from 'react';
-import {Row, Col, Button, Card, Table} from 'react-bootstrap';
+import {Row, Col, Card, Table} from 'react-bootstrap';
+
+import Transaction from "../Transaction/Transaction";
 
 import Aux from "../../hoc/_Aux";
-import DEMO from "../../store/constant";
 
 class TransactionList extends React.Component {
+
+    state = {
+        transactions: [
+          { id: 1, object: "Isabella Christensen", comment:"Lorem Ipsum is simply dummy text of…", type: "De Vassart", date: "11 MAI 12:56" },
+          { id: 2, object: "Mathilde Andersen", comment:"Lorem Ipsum is simply dummy text of…", type: "Couteau", date: "11 MAI 10:35" },
+          { id: 3, object: "Karla Sorensen", comment:"Lorem Ipsum is simply dummy text of…", type: "Venard", date: "9 MAI 17:38" },
+          { id: 4, object: "Ida Jorgensen", comment:"Lorem Ipsum is simply dummy text of…", type: "Suarez", date: "19 MAI 12:56" },
+          { id: 5, object: "Albert Andersen", comment:"Lorem Ipsum is simply dummy text of…", type: "Perez", date: "21 Juillet 12:56" },
+        ]
+      };
+
     render() {
         return (
             <Aux>
@@ -12,11 +24,7 @@ class TransactionList extends React.Component {
                     <Col md={9} xl={12}>
                         <Card className='Recent-Users'>
                             <Card.Header>
-                                <Card.Title as='h5'>Liste des transactions&nbsp;&nbsp;
-                                    <Button variant="success">
-                                        + Créer une nouvelle transaction
-                                    </Button>
-                                </Card.Title>
+                                <Card.Title as='h5'>Liste des transactions</Card.Title>
                             </Card.Header>
                             <Card.Body className='px-0 py-2'>
                                 <Table responsive hover>
@@ -30,77 +38,12 @@ class TransactionList extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <tr className="unread">
-                                        <th scope="row">1</th>
-                                        {/* <td><img className="rounded-circle" style={{width: '40px'}} src={avatar1} alt="activity-user"/></td> */}
-                                        <td>
-                                            <h6 className="mb-1">Isabella Christensen</h6>
-                                            <p className="m-0">Lorem Ipsum is simply dummy text of…</p>
-                                        </td>
-                                        <td>
-                                            <h6 className="mb-1">Don</h6>
-                                        </td>
-                                        <td>
-                                            <h6 className="text-muted"><i className="fa fa-circle text-c-green f-10 m-r-15"/>11 MAY 12:56</h6>
-                                        </td>
-                                        <td><a href={DEMO.BLANK_LINK} className="label theme-bg2 text-white f-12">Reject</a><a href={DEMO.BLANK_LINK} className="label theme-bg text-white f-12">Approve</a></td>
-                                    </tr>
-                                    <tr className="unread">
-                                        <th scope="row">2</th>
-                                        <td>
-                                            <h6 className="mb-1">Mathilde Andersen</h6>
-                                            <p className="m-0">Lorem Ipsum is simply dummy text of…</p>
-                                        </td>
-                                        <td>
-                                            <h6 className="mb-1">Frais d'inscription</h6>
-                                        </td>
-                                        <td>
-                                            <h6 className="text-muted"><i className="fa fa-circle text-c-red f-10 m-r-15"/>11 MAY 10:35</h6>
-                                        </td>
-                                        <td><a href={DEMO.BLANK_LINK} className="label theme-bg2 text-white f-12">Reject</a><a href={DEMO.BLANK_LINK} className="label theme-bg text-white f-12">Approve</a></td>
-                                    </tr>
-                                    <tr className="unread">
-                                        <th scope="row">3</th>
-                                        <td>
-                                            <h6 className="mb-1">Karla Sorensen</h6>
-                                            <p className="m-0">Lorem Ipsum is simply dummy text of…</p>
-                                        </td>
-                                        <td>
-                                            <h6 className="mb-1">Autre</h6>
-                                        </td>
-                                        <td>
-                                            <h6 className="text-muted"><i className="fa fa-circle text-c-green f-10 m-r-15"/>9 MAY 17:38</h6>
-                                        </td>
-                                        <td><a href={DEMO.BLANK_LINK} className="label theme-bg2 text-white f-12">Reject</a><a href={DEMO.BLANK_LINK} className="label theme-bg text-white f-12">Approve</a></td>
-                                    </tr>
-                                    <tr className="unread">
-                                        <th scope="row">4</th>
-                                        <td>
-                                            <h6 className="mb-1">Ida Jorgensen</h6>
-                                            <p className="m-0">Lorem Ipsum is simply dummy text of…</p>
-                                        </td>
-                                        <td>
-                                            <h6 className="mb-1">Frais d'inscription</h6>
-                                        </td>
-                                        <td>
-                                            <h6 className="text-muted f-w-300"><i className="fa fa-circle text-c-red f-10 m-r-15"/>19 MAY 12:56</h6>
-                                        </td>
-                                        <td><a href={DEMO.BLANK_LINK} className="label theme-bg2 text-white f-12">Reject</a><a href={DEMO.BLANK_LINK} className="label theme-bg text-white f-12">Approve</a></td>
-                                    </tr>
-                                    <tr className="unread">
-                                        <th scope="row">5</th>
-                                        <td>
-                                            <h6 className="mb-1">Albert Andersen</h6>
-                                            <p className="m-0">Lorem Ipsum is simply dummy text of…</p>
-                                        </td>
-                                        <td>
-                                            <h6 className="mb-1">Don</h6>
-                                        </td>
-                                        <td>
-                                            <h6 className="text-muted"><i className="fa fa-circle text-c-green f-10 m-r-15"/>21 July 12:56</h6>
-                                        </td>
-                                        <td><a href={DEMO.BLANK_LINK} className="label theme-bg2 text-white f-12">Reject</a><a href={DEMO.BLANK_LINK} className="label theme-bg text-white f-12">Approve</a></td>
-                                    </tr>
+                                    {this.state.transactions.map(transaction => (
+                                        <Transaction
+                                            key={transaction.id}
+                                            details={transaction}
+                                        />
+                                    ))}
                                     </tbody>
                                 </Table>
                             </Card.Body>
