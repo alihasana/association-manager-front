@@ -1,7 +1,7 @@
 import React from 'react';
 import {Row, Col, Card, Table} from 'react-bootstrap';
 
-import Project from "../Projects/Project"
+import Project from "../Project/Project"
 
 import Aux from "../../hoc/_Aux";
 
