@@ -1,5 +1,7 @@
 import React from 'react';
-import {Row, Col, Card, Button, Table} from 'react-bootstrap';
+import {Row, Col, Card, Table} from 'react-bootstrap';
+
+import Member from '../Member/Member';
 
 import Aux from "../../hoc/_Aux";
 
@@ -8,6 +10,27 @@ import avatar2 from '../../assets/images/user/avatar-2.jpg';
 import avatar3 from '../../assets/images/user/avatar-3.jpg';
 
 class MembersList extends React.Component {
+
+    state = {
+        members: [
+          { id: 1, avatar: avatar1, firstName: "Jean", lastName: "Yves", entryDate: "25/12/2019 12:32:00" },
+          { id: 2, avatar: avatar2, firstName: "Jeannine", lastName: "Potencier", entryDate: "25/12/2019 12:32:00" },
+          { id: 3, avatar: avatar3, firstName: "Paul", lastName: "Vaillant", entryDate: "25/12/2019 12:32:00" },
+          { id: 4, avatar: avatar1, firstName: "Edouard", lastName: "Pepin", entryDate: "25/12/2019 12:32:00" },
+          { id: 5, avatar: avatar2, firstName: "Ronaldo", lastName: "Perez", entryDate: "25/12/2019 12:32:00" },
+        ]
+      };
+
+      handleDelete = id => {
+        const members = [...this.state.members];
+        const index = members.findIndex(member => member.id === id);
+    
+        members.splice(index, 1);
+    
+        this.setState({ members });
+      };
+
+
     render() {
         return (
             <Aux>
@@ -15,11 +38,7 @@ class MembersList extends React.Component {
                     <Col md={9} xl={12}>
                         <Card className='Recent-Users'>
                             <Card.Header>
-                                <Card.Title as="h5">Liste des membres&nbsp;&nbsp;
-                                    <Button variant="success">
-                                        + Créer un nouveau membre
-                                    </Button>
-                                </Card.Title>
+                                <Card.Title as="h5">Liste des membres</Card.Title>
                             </Card.Header>
                             <Card.Body className='px-0 py-2'>
                                 <Table responsive hover>
@@ -34,60 +53,13 @@ class MembersList extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <tr className="unread">
-                                            <th scope="row">1</th>
-                                            <td><img className="rounded-circle" style={{width: '40px'}} src={avatar1} alt="activity-user"/></td> 
-                                            <td>Jean</td>
-                                            <td>Yves</td>
-                                            <td>27/01/2020</td>
-                                            <td>
-                                                <Button variant="secondary">
-                                                    <i className="fa fa-eye f-22 m-r-10"/>
-                                                </Button>
-                                                <Button variant="primary">
-                                                    <i className="fa fa-edit f-22 m-r-10"/>
-                                                </Button>
-                                                <Button variant="danger">
-                                                    <i className="fa fa-trash f-22 m-r-10"/>
-                                                </Button>
-                                            </td>
-                                        </tr>
-                                        <tr className="unread">
-                                            <th scope="row">2</th>
-                                            <td><img className="rounded-circle" style={{width: '40px'}} src={avatar2} alt="activity-user"/></td> 
-                                            <td>Jean</td>
-                                            <td>Paul</td>
-                                            <td>27/01/2020</td>
-                                            <td>
-                                                <Button variant="secondary">
-                                                    <i className="fa fa-eye f-22 m-r-10"/>
-                                                </Button>
-                                                <Button variant="primary">
-                                                    <i className="fa fa-edit f-22 m-r-10"/>
-                                                </Button>
-                                                <Button variant="danger">
-                                                    <i className="fa fa-trash f-22 m-r-10"/>
-                                                </Button>
-                                            </td>
-                                        </tr>
-                                        <tr className="unread">
-                                            <th scope="row">3</th>
-                                            <td><img className="rounded-circle" style={{width: '40px'}} src={avatar3} alt="activity-user"/></td> 
-                                            <td>Stéphanie</td>
-                                            <td>Richard</td>
-                                            <td>27/01/2020</td>
-                                            <td>
-                                                <Button variant="secondary">
-                                                    <i className="fa fa-eye f-22 m-r-10"/>
-                                                </Button>
-                                                <Button variant="primary">
-                                                    <i className="fa fa-edit f-22 m-r-10"/>
-                                                </Button>
-                                                <Button variant="danger">
-                                                    <i className="fa fa-trash f-22 m-r-10"/>
-                                                </Button>
-                                            </td>
-                                        </tr>
+                                        {this.state.members.map(member => (
+                                            <Member
+                                                key={member.id}
+                                                details={member}
+                                                onDelete={this.handleDelete}
+                                            />
+                                        ))}
                                     </tbody>
                                 </Table>
                             </Card.Body>
