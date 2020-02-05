@@ -1,6 +1,6 @@
 import React from 'react';
 import $ from "jquery";
-import OrgChart from "orgchart";
+//import OrgChart from "orgchart";
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
