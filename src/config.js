@@ -1,5 +1,24 @@
+let link = window.location.href;
+
+function linkVerif(ressource){
+
+    let defaultCustomDashboardLink = '/sadmin';
+    
+    if(link.indexOf("admin") !== -1) 
+    {
+        return defaultCustomDashboardLink === '/admin'
+    }
+    else if(link.indexOf("membre") !== -1)
+    {
+        return defaultCustomDashboardLink === '/membre'
+    }else{
+        return defaultCustomDashboardLink
+    }
+}
+
+
 export default {
-    defaultPath: '/sadmin',
+    defaultPath: linkVerif(link),
     basename: '/association-manager/dashboard', // only at build time to set, like /datta-able
     layout: 'vertical', // vertical, horizontal (not available in lite version)
     preLayout: null, // (not available in lite version)
