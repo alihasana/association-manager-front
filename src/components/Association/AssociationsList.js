@@ -40,9 +40,7 @@ class AssocationsList extends React.Component {
       
       
     render() {
-
         const title = "Liste des associations";
-
         return (
             <Aux>
                 <Row>
