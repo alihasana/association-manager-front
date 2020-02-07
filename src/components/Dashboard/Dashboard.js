@@ -431,7 +431,7 @@ class Dashboard extends React.Component {
                                 <h6 className='mb-4'>Somme et nombre de dons effectués</h6>
                                 <div className="row d-flex align-items-center">
                                     <div className="col-9">
-                                        <h3 className="f-w-300 d-flex align-items-center m-b-0"><i className="feather icon-afile-text text-c-green f-30 m-r-5"/> 4500 €</h3>
+                                        <h3 className="f-w-300 d-flex align-items-center m-b-0"><i className="feather icon-file-text text-c-green f-30 m-r-5"/> 4500 €</h3>
                                     </div>
 
                                     <div className="col-3 text-right">

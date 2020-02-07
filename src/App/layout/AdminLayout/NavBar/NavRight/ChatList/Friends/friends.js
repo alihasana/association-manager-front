@@ -5,7 +5,7 @@ export default [
             name: 'Josephin Doe',
             new: 3,
             status: 1,
-            time: 'typing'
+            time: 'écrit'
         },
         {
             id: 2,
@@ -13,14 +13,14 @@ export default [
             name: 'Lary Doe',
             new: 1,
             status: 1,
-            time: 'online'
+            time: 'en ligne'
         },
         {
             id: 3,
             photo: 'avatar-3.jpg',
             name: 'Alice',
             status: 1,
-            time: 'online'
+            time: 'en ligne'
         },
         {
             id: 4,
@@ -28,14 +28,14 @@ export default [
             name: 'Alia',
             status: 0,
             new: 1,
-            time: '10 min ago'
+            time: 'il y a 10 minutes'
         },
         {
             id: 5,
             photo: 'avatar-4.jpg',
             name: 'Suzen',
             status: 0,
-            time: '15 min ago'
+            time: 'il y a 15 minutes'
         },
         {
             id: 6,
@@ -43,7 +43,7 @@ export default [
             name: 'Josephin Doe',
             new: 3,
             status: 1,
-            time: 'typing'
+            time: 'écrit'
         },
         {
             id: 7,
@@ -51,14 +51,14 @@ export default [
             name: 'Lary Doe',
             new: 1,
             status: 1,
-            time: 'online'
+            time: 'en ligne'
         },
         {
             id: 8,
             photo: 'avatar-3.jpg',
             name: 'Alice',
             status: 1,
-            time: 'online'
+            time: 'en ligne'
         },
         {
             id: 9,
@@ -66,14 +66,14 @@ export default [
             name: 'Alia',
             status: 0,
             new: 1,
-            time: '10 min ago'
+            time: 'il y a 10 minutes'
         },
         {
             id: 10,
             photo: 'avatar-4.jpg',
             name: 'Suzen',
             status: 0,
-            time: '15 min ago'
+            time: 'il y a 15 minutes'
         },
         {
             id: 11,
@@ -81,7 +81,7 @@ export default [
             name: 'Josephin Doe',
             new: 3,
             status: 1,
-            time: 'typing'
+            time: 'écrit'
         },
         {
             id: 12,
@@ -89,14 +89,14 @@ export default [
             name: 'Lary Doe',
             new: 1,
             status: 1,
-            time: 'online'
+            time: 'en ligne'
         },
         {
             id: 13,
             photo: 'avatar-3.jpg',
             name: 'Alice',
             status: 1,
-            time: 'online'
+            time: 'en ligne'
         },
         {
             id: 14,
@@ -104,14 +104,14 @@ export default [
             name: 'Alia',
             status: 0,
             new: 1,
-            time: '10 min ago'
+            time: 'il y a 10 minutes'
         },
         {
             id: 15,
             photo: 'avatar-4.jpg',
             name: 'Suzen',
             status: 0,
-            time: '15 min ago'
+            time: 'il y a 15 minutes'
         },
         {
             id: 16,
@@ -119,7 +119,7 @@ export default [
             name: 'Josephin Doe',
             new: 3,
             status: 1,
-            time: 'typing'
+            time: 'écrit'
         },
         {
             id: 17,
@@ -127,14 +127,14 @@ export default [
             name: 'Lary Doe',
             new: 1,
             status: 1,
-            time: 'online'
+            time: 'en ligne'
         },
         {
             id: 18,
             photo: 'avatar-3.jpg',
             name: 'Alice',
             status: 1,
-            time: 'online'
+            time: 'en ligne'
         },
         {
             id: 19,
@@ -142,14 +142,14 @@ export default [
             name: 'Alia',
             status: 0,
             new: 1,
-            time: '10 min ago'
+            time: 'il y a 10 minutes'
         },
         {
             id: 20,
             photo: 'avatar-4.jpg',
             name: 'Suzen',
             status: 0,
-            time: '15 min ago'
+            time: 'il y a 15 minutes'
         },
         {
             id: 21,
@@ -157,7 +157,7 @@ export default [
             name: 'Josephin Doe',
             new: 3,
             status: 1,
-            time: 'typing'
+            time: 'écrit'
         },
         {
             id: 22,
@@ -165,14 +165,14 @@ export default [
             name: 'Lary Doe',
             new: 1,
             status: 1,
-            time: 'online'
+            time: 'en ligne'
         },
         {
             id: 23,
             photo: 'avatar-3.jpg',
             name: 'Alice',
             status: 1,
-            time: 'online'
+            time: 'en ligne'
         },
         {
             id: 24,
@@ -180,13 +180,13 @@ export default [
             name: 'Alia',
             status: 0,
             new: 1,
-            time: '10 min ago'
+            time: 'il y a 10 minutes'
         },
         {
             id: 25,
             photo: 'avatar-4.jpg',
             name: 'Suzen',
             status: 0,
-            time: '15 min ago'
+            time: 'il y a 15 minutes'
         }
 ];

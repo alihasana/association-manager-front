@@ -28,50 +28,50 @@ class NavRight extends Component {
                                 <div className="noti-head">
                                     <h6 className="d-inline-block m-b-0">Notifications</h6>
                                     <div className="float-right">
-                                        <a href={DEMO.BLANK_LINK} className="m-r-10">mark as read</a>
-                                        <a href={DEMO.BLANK_LINK}>clear all</a>
+                                        <a href={DEMO.BLANK_LINK} className="m-r-10">Marquez comme lues</a>
+                                        <a href={DEMO.BLANK_LINK}>Tout effacer</a>
                                     </div>
                                 </div>
                                 <ul className="noti-body">
                                     <li className="n-title">
-                                        <p className="m-b-0">NEW</p>
-                                    </li>
-                                    <li className="notification">
-                                        <div className="media">
-                                            <img className="img-radius" src={Avatar1} alt="Generic placeholder"/>
-                                            <div className="media-body">
-                                                <p><strong>John Doe</strong><span className="n-time text-muted"><i
-                                                    className="icon feather icon-clock m-r-10"/>30 min</span></p>
-                                                <p>New ticket Added</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="n-title">
-                                        <p className="m-b-0">EARLIER</p>
+                                        <p className="m-b-0">Actualités</p>
                                     </li>
                                     <li className="notification">
                                         <div className="media">
                                             <img className="img-radius" src={Avatar2} alt="Generic placeholder"/>
                                             <div className="media-body">
-                                                <p><strong>Joseph William</strong><span className="n-time text-muted"><i
+                                                <p><strong>Nesly PETIT BERT</strong><span className="n-time text-muted"><i
+                                                    className="icon feather icon-clock m-r-10"/>12 min</span></p>
+                                                <p>Vient de lancer un nouveau projet</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li className="n-title">
+                                        <p className="m-b-0">Récemment</p>
+                                    </li>
+                                    <li className="notification">
+                                        <div className="media">
+                                            <img className="img-radius" src={Avatar2} alt="Generic placeholder"/>
+                                            <div className="media-body">
+                                                <p><strong>Giovanni NSELE</strong><span className="n-time text-muted"><i
                                                     className="icon feather icon-clock m-r-10"/>30 min</span></p>
-                                                <p>Prchace New Theme and make payment</p>
+                                                <p>Vient de placer une nouvelle commande</p>
                                             </div>
                                         </div>
                                     </li>
                                     <li className="notification">
                                         <div className="media">
-                                            <img className="img-radius" src={Avatar3} alt="Generic placeholder"/>
+                                            <img className="img-radius" src={Avatar2} alt="Generic placeholder"/>
                                             <div className="media-body">
-                                                <p><strong>Sara Soudein</strong><span className="n-time text-muted"><i
-                                                    className="icon feather icon-clock m-r-10"/>30 min</span></p>
-                                                <p>currently login</p>
+                                                <p><strong>Alihasana SHAIKALAU</strong><span className="n-time text-muted"><i
+                                                    className="icon feather icon-clock m-r-10"/>12 min</span></p>
+                                                <p>actuellement connecté</p>
                                             </div>
                                         </div>
                                     </li>
                                 </ul>
                                 <div className="noti-footer">
-                                    <a href={DEMO.BLANK_LINK}>show all</a>
+                                    <a href={DEMO.BLANK_LINK}>Voir toutes les notifications</a>
                                 </div>
                             </Dropdown.Menu>
                         </Dropdown>
@@ -86,17 +86,17 @@ class NavRight extends Component {
                             </Dropdown.Toggle>
                             <Dropdown.Menu alignRight className="profile-notification">
                                 <div className="pro-head">
-                                    <img src={Avatar1} className="img-radius" alt="User Profile"/>
-                                    <span>John Doe</span>
+                                    <img src={Avatar2} className="img-radius" alt="User Profile"/>
+                                    <span>Nesly PETIT BERT</span>
                                     <a href={DEMO.BLANK_LINK} className="dud-logout" title="Logout">
                                         <i className="feather icon-log-out"/>
                                     </a>
                                 </div>
                                 <ul className="pro-body">
-                                    <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-settings"/> Settings</a></li>
-                                    <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-user"/> Profile</a></li>
-                                    <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-mail"/> My Messages</a></li>
-                                    <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-lock"/> Lock Screen</a></li>
+                                    <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-settings"/> Réglages</a></li>
+                                    <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-user"/> Profil</a></li>
+                                    <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-mail"/> Mes Messages</a></li>
+                                    {/* <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-lock"/> Lock Screen</a></li> */}
                                 </ul>
                             </Dropdown.Menu>
                         </Dropdown>
