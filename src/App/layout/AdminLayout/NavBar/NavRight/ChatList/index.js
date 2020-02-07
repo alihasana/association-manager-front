@@ -17,7 +17,7 @@ const chatList = (props) => {
             <div className={listClass.join(' ')}>
                 <div className="h-list-header">
                     <div className="input-group">
-                        <input type="text" id="search-friends" className="form-control" placeholder="Search Friend . . ." />
+                        <input type="text" id="search-friends" className="form-control" placeholder="Rechercher un ami . . ." />
                     </div>
                 </div>
                 <div className="h-list-body">
