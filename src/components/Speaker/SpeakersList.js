@@ -1,9 +1,31 @@
 import React from 'react';
-import {Row, Col, Card, Button, Table} from 'react-bootstrap';
+import {Row, Col, Card, Table} from 'react-bootstrap';
+
+import Speaker from '../Speaker/Speaker';
 
 import Aux from "../../hoc/_Aux";
 
 class SpeakerList extends React.Component {
+
+    state = {
+        speakers: [
+          { id: 1, firstName: "Dupuis", lastName: "De Vassart", entryDate: "25/12/2019 12:32:00" },
+          { id: 2, firstName: "Roland", lastName: "Couteau", entryDate: "25/12/2019 12:32:00" },
+          { id: 3, firstName: "Juliette", lastName: "Venard", entryDate: "25/12/2019 12:32:00" },
+          { id: 4, firstName: "Louis", lastName: "Suarez", entryDate: "25/12/2019 12:32:00" },
+          { id: 5, firstName: "Leonard", lastName: "Perez", entryDate: "25/12/2019 12:32:00" },
+        ]
+      };
+
+      handleDelete = id => {
+        const speakers = [...this.state.speakers];
+        const index = speakers.findIndex(speaker => speaker.id === id);
+    
+        speakers.splice(index, 1);
+    
+        this.setState({ speakers });
+      };
+
     render() {
         return (
             <Aux>
@@ -11,11 +33,8 @@ class SpeakerList extends React.Component {
                     <Col>
                         <Card>
                             <Card.Header>
-                                <Card.Title as="h5">Liste des intervenants&nbsp;&nbsp;
-                                    <Button variant="success">
-                                        + Créer un nouvel intervant
-                                    </Button>
-                                </Card.Title>
+                                <Card.Title as="h5">Liste des intervenants</Card.Title>
+                                {/* <span className="d-block m-t-5">use props <code>hover</code> with <code>Table</code> component</span> */}
                             </Card.Header>
                             <Card.Body>
                                 <Table responsive hover>
@@ -29,57 +48,13 @@ class SpeakerList extends React.Component {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Jeannine</td>
-                                        <td>St Louis</td>
-                                        <td>27/01/2020</td>
-                                        <td>
-                                            <Button variant="secondary">
-                                                <i className="fa fa-eye f-22 m-r-10"/>
-                                            </Button>
-                                            <Button variant="primary">
-                                                <i className="fa fa-edit f-22 m-r-10"/>
-                                            </Button>
-                                            <Button variant="danger">
-                                                <i className="fa fa-trash f-22 m-r-10"/>
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Joseph</td>
-                                        <td>Exil</td>
-                                        <td>27/01/2020</td>
-                                        <td>
-                                            <Button variant="secondary">
-                                                <i className="fa fa-eye f-22 m-r-10"/>
-                                            </Button>
-                                            <Button variant="primary">
-                                                <i className="fa fa-edit f-22 m-r-10"/>
-                                            </Button>
-                                            <Button variant="danger">
-                                                <i className="fa fa-trash f-22 m-r-10"/>
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Durant</td>
-                                        <td>Paul</td>
-                                        <td>27/01/2020</td>
-                                        <td>
-                                            <Button variant="secondary">
-                                                <i className="fa fa-eye f-22 m-r-10"/>
-                                            </Button>
-                                            <Button variant="primary">
-                                                <i className="fa fa-edit f-22 m-r-10"/>
-                                            </Button>
-                                            <Button variant="danger">
-                                                <i className="fa fa-trash f-22 m-r-10"/>
-                                            </Button>
-                                        </td>
-                                    </tr>
+                                    {this.state.speakers.map(speaker => (
+                                        <Speaker
+                                            key={speaker.id}
+                                            details={speaker}
+                                            onDelete={this.handleDelete}
+                                        />
+                                    ))}
                                     </tbody>
                                 </Table>
                             </Card.Body>

@@ -1,21 +1,56 @@
 import React from 'react';
-import {Row, Col, Button, Card, Table} from 'react-bootstrap';
+import {Row, Col, Card, Table} from 'react-bootstrap';
+
+import Association from '../Association/Association';
+//import AssociationForm from '../Association/AssociationForm';
 
 import Aux from "../../hoc/_Aux";
 
 class AssocationsList extends React.Component {
+
+    state = {
+        associations: [
+          { id: 1, name: "Resto du coeur", type: "Association loi de 1901", entryDate: "25/12/2019 12:32:00" },
+          { id: 2, name: "Secours populaire", type: "Association à but non lucratif", entryDate: "25/01/2019 12:32:00" },
+          { id: 3, name: "Unicef", type: "Organisme public international", entryDate: "25/11/2019 12:32:00" },
+          { id: 4, name: "Emmaûs France", type: "Association loi 1901", entryDate: "25/10/2019 12:32:00" },
+          { id: 5, name: "Croix rouge", type: "Association...", entryDate: "25/01/2020 12:32:00" },
+        ]
+      };
+
+
+      // Add and Delete
+
+      handleDelete = id => {
+        const associations = [...this.state.associations];
+        const index = associations.findIndex(association => association.id === id);
+    
+        associations.splice(index, 1);
+    
+        this.setState({ associations });
+      };
+    
+    //   handleAdd = association => {
+    //     const associations = [...this.state.associations];
+    //     associations.push(association);
+    
+    //     this.setState({ associations });
+    //   };
+
+      
+      
     render() {
+
+        const title = "Liste des clients";
+
         return (
             <Aux>
                 <Row>
                     <Col>
                         <Card>
                             <Card.Header>
-                                <Card.Title as="h5">Liste des associations&nbsp;&nbsp;
-                                    <Button variant="success">
-                                        + Créer un nouvelle association
-                                    </Button>
-                                </Card.Title>
+                                <Card.Title as="h5">{title}</Card.Title>
+                                {/* <span className="d-block m-t-5">use props <code>hover</code> with <code>Table</code> component</span> */}
                             </Card.Header>
                             <Card.Body>
                                 <Table responsive hover>
@@ -29,57 +64,14 @@ class AssocationsList extends React.Component {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Croix Rouge</td>
-                                        <td>Humanitaire</td>
-                                        <td>27/01/2020</td>
-                                        <td>
-                                            <Button variant="secondary">
-                                                <i className="fa fa-eye f-22 m-r-10"/>
-                                            </Button>
-                                            <Button variant="primary">
-                                                <i className="fa fa-edit f-22 m-r-10"/>
-                                            </Button>
-                                            <Button variant="danger">
-                                                <i className="fa fa-trash f-22 m-r-10"/>
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>US Créteil</td>
-                                        <td>Sportive</td>
-                                        <td>27/01/2020</td>
-                                        <td>
-                                            <Button variant="secondary">
-                                                <i className="fa fa-eye f-22 m-r-10"/>
-                                            </Button>
-                                            <Button variant="primary">
-                                                <i className="fa fa-edit f-22 m-r-10"/>
-                                            </Button>
-                                            <Button variant="danger">
-                                                <i className="fa fa-trash f-22 m-r-10"/>
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Sans frontières</td>
-                                        <td>Humanitaire</td>
-                                        <td>27/01/2020</td>
-                                        <td>
-                                            <Button variant="secondary">
-                                                <i className="fa fa-eye f-22 m-r-10"/>
-                                            </Button>
-                                            <Button variant="primary">
-                                                <i className="fa fa-edit f-22 m-r-10"/>
-                                            </Button>
-                                            <Button variant="danger">
-                                                <i className="fa fa-trash f-22 m-r-10"/>
-                                            </Button>
-                                        </td>
-                                    </tr>
+                                        {this.state.associations.map(association => (
+                                            <Association
+                                                key={association.id}
+                                                details={association}
+                                                onDelete={this.handleDelete}
+                                            />
+                                        ))}
+                                        {/* <AssociationForm onAssociationAdd={this.handleAdd} /> */}
                                     </tbody>
                                 </Table>
                             </Card.Body>
