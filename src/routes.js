@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import UserRegistration from './components/Forms/UserRegistration';
 
 window.jQuery = $;
 window.$ = $;
@@ -45,6 +46,10 @@ const routes = [
     { path: '/membre', exact: true, name: 'Dashboard', component: Dashboard },
     { path: '/membre/associations', exact: true, name: 'Liste des associations', component: AssociationManagerList },
     { path: '/membre/projets', exact: true, name: 'Liste des transactions', component: ProjectsList },
+
+    // BACKEND FORMS
+    { path: '/admin/creation/utilisateur', exact: true, name: 'Création d\'utilisateur', component: UserRegistration },
+
 
 ];
 

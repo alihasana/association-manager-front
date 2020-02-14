@@ -42,10 +42,6 @@ class StaffsList extends React.Component {
         this.setState({members});
     };
 
-    componentWillUnmount() {
-        this.$el.empty();
-    }
-
     render() {
         return (
             <Aux>
