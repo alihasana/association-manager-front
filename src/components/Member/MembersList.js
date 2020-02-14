@@ -1,6 +1,6 @@
 import React from 'react';
 import {Row, Col, Card, Table, Button} from 'react-bootstrap';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 import Member from '../Member/Member';
 
 import Aux from "../../hoc/_Aux";
