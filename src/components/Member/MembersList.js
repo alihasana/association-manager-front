@@ -1,6 +1,6 @@
 import React from 'react';
-import {Row, Col, Card, Table} from 'react-bootstrap';
-
+import {Row, Col, Card, Table, Button} from 'react-bootstrap';
+import { Redirect } from 'react-router-dom'
 import Member from '../Member/Member';
 
 import Aux from "../../hoc/_Aux";
@@ -18,8 +18,22 @@ class MembersList extends React.Component {
           { id: 3, avatar: avatar3, firstName: "Paul", lastName: "Vaillant", entryDate: "25/12/2019 12:32:00" },
           { id: 4, avatar: avatar1, firstName: "Edouard", lastName: "Pepin", entryDate: "25/12/2019 12:32:00" },
           { id: 5, avatar: avatar2, firstName: "Ronaldo", lastName: "Perez", entryDate: "25/12/2019 12:32:00" },
-        ]
+        ],
+        redirect: false
       };
+
+      setRedirect = () => {
+        this.setState({
+          redirect: true
+        })
+      }
+
+      renderRedirect = () => {
+        if (this.state.redirect) {
+          return <Redirect to='/admin/creation/utilisateur' />
+        }
+      }
+    
 
       handleDelete = id => {
         const members = [...this.state.members];
@@ -39,6 +53,10 @@ class MembersList extends React.Component {
                         <Card className='Recent-Users'>
                             <Card.Header>
                                 <Card.Title as="h5">Liste des membres</Card.Title>
+                                {this.renderRedirect()}
+                                <Button variant="success" onClick={this.setRedirect}>
+                                    + Créer un nouveau groupe
+                                </Button>
                             </Card.Header>
                             <Card.Body className='px-0 py-2'>
                                 <Table responsive hover>
