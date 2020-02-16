@@ -9,11 +9,11 @@ class GroupList extends React.Component {
 
     state = {
         groups: [
-            {id: 1, groupName: "Jean"},
-            {id: 2, groupName: "Jeannine"},
-            {id: 3, groupName: "Paul"},
-            {id: 4, groupName: "Edouard"},
-            {id: 5, groupName: "Ronaldo"},
+            {id: 1, groupName: "group1"},
+            {id: 2, groupName: "group2"},
+            {id: 3, groupName: "group3"},
+            {id: 4, groupName: "group4"},
+            {id: 5, groupName: "group5"},
         ],
         redirect: false
     };
