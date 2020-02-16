@@ -1,7 +1,7 @@
 import React from "react";
-import {Button} from 'react-bootstrap';
+import GroupButton from '../General/GroupButton'
 
-const Member = ({ details, onDelete }) => (
+const Member = ({ details, onDelete, onEdit }) => (
     <tr>
         <th>{details.id}</th>
         <td><img className="rounded-circle" style={{width: '40px'}} src={details.avatar} alt="activity-user"/></td> 
@@ -9,15 +9,11 @@ const Member = ({ details, onDelete }) => (
         <td>{details.lastName}</td>
         <td>{details.entryDate}</td>
         <td>
-            <Button variant="secondary">
-                <i className="fa fa-eye f-22 m-r-10"/>
-            </Button>
-            <Button variant="primary">
-                <i className="fa fa-edit f-22 m-r-10"/>
-            </Button>
-            <Button variant="danger" onClick={() => onDelete(details.id)}>
-                <i className="fa fa-trash f-22 m-r-10"/>
-            </Button>
+            <GroupButton
+                details={details}
+                onDelete={onDelete}
+                onEdit = {onEdit}
+            />
         </td>
     </tr>
 );
