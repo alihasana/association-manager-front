@@ -14,6 +14,7 @@ const GroupCreate = React.lazy(() => import('./components/Group/GroupCreate'));
 const GroupEdit = React.lazy(() => import('./components/Group/GroupEdit'));
 const StaffsList = React.lazy(() => import('./components/Staff/StaffsList'));
 const StaffCreate = React.lazy(() => import('./components/Staff/StaffCreate'));
+const StaffEdit = React.lazy(() => import('./components/Staff/StaffEdit'));
 const TransactionsList = React.lazy(() => import('./components/Transaction/TransactionsList'));
 // En cours
 const Planning = React.lazy(() => import('./components/CommingSoon'));
@@ -60,14 +61,11 @@ const routes = [
     { path: '/membre/projets', exact: true, name: 'Liste des transactions', component: ProjectsList },
 
     // BACKEND FORMS CREATION
-    // { path: '/admin/creation/utilisateur', exact: true, name: 'Création d\'utilisateur', component: UserRegistration },
-
         //admin
     { path: '/admin/membres/creer', exact: true, name: 'Création de membre', component: MemberCreate },
-
     { path: '/admin/projets/creer', exact: true, name: 'Création de projet', component: ProjectCreate },
-    { path: '/admin/creation/groupe', exact: true, name: 'Création de groupe', component: GroupCreate },
-    { path: '/admin/creation/staff', exact: true, name: 'Création de staff', component: StaffCreate },
+    { path: '/admin/groupe/creer', exact: true, name: 'Création de groupe', component: GroupCreate },
+    { path: '/admin/staff/creer', exact: true, name: 'Création de staff', component: StaffCreate },
 
         //sadmin
     { path: '/sadmin/membres/creer', exact: true, name: 'Création de membre', component: MemberCreate },
@@ -76,8 +74,8 @@ const routes = [
 
     // BACKEND FORMS EDIT
         //admin
-    { path: '/admin/éditer/groupe', exact: true, name: 'Editer de groupe', component: GroupEdit },
-
+    { path: '/admin/groupe/modifier', exact: true, name: 'Editer de groupe', component: GroupEdit },
+    { path: '/admin/staff/modifier', exact: true, name: 'Editer de groupe', component: StaffEdit },
     { path: '/admin/membres/modifier', exact: true, name: 'Modification de membre', component: MemberEdit },
     { path: '/admin/projets/modifier', exact: true, name: 'Modification de projet', component: ProjectEdit },
 
@@ -85,7 +83,6 @@ const routes = [
     { path: '/sadmin/membres/modifier', exact: true, name: 'Modification de membre', component: MemberEdit },
     { path: '/sadmin/associations/modifier', exact: true, name: 'Modification d\'une association', component: AssociationEdit },
     { path: '/sadmin/projets/modifier', exact: true, name: 'Modification de projet', component: ProjectEdit },
-    { path: '/admin/éditer/staff', exact: true, name: 'Editer de groupe', component: StaffCreate },
 ];
 
 export default routes;

@@ -42,13 +42,13 @@ class StaffsList extends React.Component {
 
     renderRedirectCreate = () => {
         if (this.state.redirectCreate) {
-            return <Redirect to='/admin/creation/staff'/>
+            return <Redirect to='/admin/staff/creer'/>
         }
     };
 
     renderRedirectEdit = () => {
         if (this.state.redirectEdit) {
-            return <Redirect to='/admin/éditer/staff'/>
+            return <Redirect to='/admin/staff/modifier'/>
         }
     };
 
@@ -72,7 +72,7 @@ class StaffsList extends React.Component {
                             <Card className='Recent-Users'>
                                 <Card.Header>
                                     <Card.Title as="h5">Liste des staffs</Card.Title>
-                                    {this.renderRedirectCreate('/admin/creation/staff')}
+                                    {this.renderRedirectCreate()}
                                     <Button variant="success" onClick={this.setRedirectCreate}>
                                         + Créer un nouveau staff
                                     </Button>

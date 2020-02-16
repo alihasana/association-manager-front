@@ -30,7 +30,7 @@ class StaffCreate extends React.Component {
                     <Col>
                         <Card>
                             <Card.Header>
-                                <Card.Title as="h5">Création d'un nouvel staff</Card.Title>
+                                <Card.Title as="h5">Modifier est detail de staff</Card.Title>
                             </Card.Header>
                             <Card.Body>
                                 <Row>
@@ -62,7 +62,7 @@ class StaffCreate extends React.Component {
                                             </Form.Group>
                                             {this.renderRedirect()}
                                             <Button variant="primary" onClick={this.setRedirect}>
-                                            Submit
+                                                Submit
                                             </Button>
                                         </Form>
                                     </Col>

@@ -32,13 +32,13 @@ class GroupList extends React.Component {
 
     renderRedirectCreate = () => {
         if (this.state.redirectCreate) {
-            return <Redirect to='/admin/creation/groupe'/>
+            return <Redirect to='/admin/groupe/creer'/>
         }
     };
 
     renderRedirectEdit = () => {
         if (this.state.redirectEdit) {
-            return <Redirect to='/admin/éditer/groupe'/>
+            return <Redirect to='/admin/groupe/modifier'/>
         }
     };
 
