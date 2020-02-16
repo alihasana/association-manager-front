@@ -1,10 +1,13 @@
 import React from 'react';
-import {Row, Col, Card, Table} from 'react-bootstrap';
+import {Row, Col, Card, Table, Button} from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 
 import Association from '../Association/Association';
 //import AssociationForm from '../Association/AssociationForm';
 
 import Aux from "../../hoc/_Aux";
+
+import Paginate from "../General/Paginate";
 
 class AssocationsList extends React.Component {
 
@@ -15,9 +18,37 @@ class AssocationsList extends React.Component {
           { id: 3, name: "Unicef", type: "Organisme public international", entryDate: "25/11/2019 12:32:00" },
           { id: 4, name: "Emmaûs France", type: "Association loi 1901", entryDate: "25/10/2019 12:32:00" },
           { id: 5, name: "Croix rouge", type: "Association...", entryDate: "25/01/2020 12:32:00" },
-        ]
+        ],
+        redirectCreate: false,
+        redirectEdit: false
       };
 
+
+      
+      setRedirectCreate = () => {
+        this.setState({
+          redirectCreate: true
+        })
+      };
+
+      setRedirectEdit = () => {
+        this.setState({
+          redirectEdit: true
+        })
+      };
+
+      renderRedirectCreate = (url) => {
+        if (this.state.redirectCreate) {
+
+            return <Redirect to={url}/>
+        }
+    };
+
+      renderRedirectEdit = (url) => {
+        if (this.state.redirectEdit) {
+            return <Redirect to={url}/>
+        }
+    };
 
       // Add and Delete
 
@@ -28,28 +59,23 @@ class AssocationsList extends React.Component {
         associations.splice(index, 1);
     
         this.setState({ associations });
-      };
-    
-    //   handleAdd = association => {
-    //     const associations = [...this.state.associations];
-    //     associations.push(association);
-    
-    //     this.setState({ associations });
-    //   };
-
-      
+      };      
       
     render() {
-        const title = "Liste des associations";
         return (
             <Aux>
                 <Row>
-                    <Col>
-                        <Card>
+                    <Col md={9} xl={12}>
+                        <Card className='Recent-Users'>
                             <Card.Header>
-                                <Card.Title as="h5">{title}</Card.Title>
-                                {/* <span className="d-block m-t-5">use props <code>hover</code> with <code>Table</code> component</span> */}
+                                <Card.Title as="h5">Liste des associations &nbsp;&nbsp;
+                                    {this.renderRedirectCreate('/sadmin/associations/creer')}
+                                    <Button variant="success" onClick={this.setRedirectCreate}>
+                                        + Créer une nouvelle association
+                                    </Button>
+                                </Card.Title>
                             </Card.Header>
+
                             <Card.Body>
                                 <Table responsive hover>
                                     <thead>
@@ -62,11 +88,13 @@ class AssocationsList extends React.Component {
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    {this.renderRedirectEdit('/sadmin/associations/modifier')}
                                         {this.state.associations.map(association => (
                                             <Association
-                                                key={association.id}
                                                 details={association}
+                                                key={association.id}                                                
                                                 onDelete={this.handleDelete}
+                                                onEdit = {this.setRedirectEdit}
                                             />
                                         ))}
                                         {/* <AssociationForm onAssociationAdd={this.handleAdd} /> */}
@@ -75,6 +103,9 @@ class AssocationsList extends React.Component {
                             </Card.Body>
                         </Card>
                     </Col>
+                </Row>
+                <Row className="offset-5">
+                    <Paginate/>
                 </Row>
             </Aux>
         );

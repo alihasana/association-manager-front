@@ -8,8 +8,6 @@ global.jQuery = $;
 const Dashboard = React.lazy(() => import('./components/Dashboard/Dashboard'));
 const AssociationManagerList = React.lazy(() => import('./components/Association/AssociationsList'));
 const MembersList = React.lazy(() => import('./components/Member/MembersList'));
-const MemberCreate = React.lazy(() => import('./components/Member/MemberCreate'));
-const MemberEdit = React.lazy(() => import('./components/Member/MemberEdit'));
 const SpeakersList = React.lazy(() => import('./components/Speaker/SpeakersList'));
 const GroupList = React.lazy(() => import('./components/Group/GroupList'));
 const GroupCreate = React.lazy(() => import('./components/Group/GroupCreate'));
@@ -20,6 +18,16 @@ const TransactionsList = React.lazy(() => import('./components/Transaction/Trans
 // En cours
 const Planning = React.lazy(() => import('./components/CommingSoon'));
 const ProjectsList = React.lazy(() => import('./components/Project/ProjectsList'));
+
+// FORMS INC
+const MemberCreate = React.lazy(() => import('./components/Member/MemberCreate'));
+const MemberEdit = React.lazy(() => import('./components/Member/MemberEdit'));
+
+const AssociationCreate = React.lazy(() => import('./components/Association/AssociationCreate'));
+const AssociationEdit = React.lazy(() => import('./components/Association/AssociationEdit'));
+
+const ProjectCreate = React.lazy(() => import('./components/Project/ProjectCreate'));
+const ProjectEdit = React.lazy(() => import('./components/Project/ProjectEdit'));
 
 
 const routes = [
@@ -52,11 +60,31 @@ const routes = [
     { path: '/membre/projets', exact: true, name: 'Liste des transactions', component: ProjectsList },
 
     // BACKEND FORMS CREATION
+    // { path: '/admin/creation/utilisateur', exact: true, name: 'Création d\'utilisateur', component: UserRegistration },
+
+        //admin
+    { path: '/admin/membres/creer', exact: true, name: 'Création de membre', component: MemberCreate },
+
+    { path: '/admin/projets/creer', exact: true, name: 'Création de projet', component: ProjectCreate },
     { path: '/admin/creation/groupe', exact: true, name: 'Création de groupe', component: GroupCreate },
     { path: '/admin/creation/staff', exact: true, name: 'Création de staff', component: StaffCreate },
 
+        //sadmin
+    { path: '/sadmin/membres/creer', exact: true, name: 'Création de membre', component: MemberCreate },
+    { path: '/sadmin/associations/creer', exact: true, name: 'Création d\'une association', component: AssociationCreate },
+    { path: '/sadmin/projets/creer', exact: true, name: 'Création de projet', component: ProjectCreate },
+
     // BACKEND FORMS EDIT
+        //admin
     { path: '/admin/éditer/groupe', exact: true, name: 'Editer de groupe', component: GroupEdit },
+
+    { path: '/admin/membres/modifier', exact: true, name: 'Modification de membre', component: MemberEdit },
+    { path: '/admin/projets/modifier', exact: true, name: 'Modification de projet', component: ProjectEdit },
+
+        //sadmin
+    { path: '/sadmin/membres/modifier', exact: true, name: 'Modification de membre', component: MemberEdit },
+    { path: '/sadmin/associations/modifier', exact: true, name: 'Modification d\'une association', component: AssociationEdit },
+    { path: '/sadmin/projets/modifier', exact: true, name: 'Modification de projet', component: ProjectEdit },
     { path: '/admin/éditer/staff', exact: true, name: 'Editer de groupe', component: StaffCreate },
 ];
 

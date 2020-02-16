@@ -1,7 +1,7 @@
 import React from "react";
-import {Button} from 'react-bootstrap';
+import GroupButton from '../General/GroupButton'
 
-const Project = ({ details, onDelete }) => (
+const Project = ({ details, onDelete, onEdit }) => (
     <tr>
         <th>{details.id}</th>
         <td>{details.name}</td>
@@ -11,15 +11,11 @@ const Project = ({ details, onDelete }) => (
         <td>{details.deadLine}</td>
         
         <td>
-            <Button variant="secondary">
-                <i className="fa fa-eye f-22 m-r-10"/>
-            </Button>
-            <Button variant="primary">
-                <i className="fa fa-edit f-22 m-r-10"/>
-            </Button>
-            <Button variant="danger" onClick={() => onDelete(details.id)}>
-                <i className="fa fa-trash f-22 m-r-10"/>
-            </Button>
+            <GroupButton
+                details={details}
+                onDelete={onDelete}
+                onEdit = {onEdit}
+            />
         </td>
     </tr>
 );
