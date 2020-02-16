@@ -3,6 +3,7 @@ import {Row, Col, Card, Button, Table} from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
 import Group from './Group'
 import Aux from "../../hoc/_Aux";
+import Paginate from "../General/Paginate";
 
 class GroupList extends React.Component {
 
@@ -77,6 +78,9 @@ class GroupList extends React.Component {
                             </Card.Body>
                         </Card>
                     </Col>
+                </Row>
+                <Row className="offset-5">
+                    <Paginate/>
                 </Row>
             </Aux>
         );

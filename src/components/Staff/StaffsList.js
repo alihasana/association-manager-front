@@ -1,21 +1,14 @@
 import StaffsChart from "./StaffsChart"
 import React from 'react';
-import {Row, Col, Card, Table, Pagination} from 'react-bootstrap';
+import {Row, Col, Card, Table} from 'react-bootstrap';
 import Member from '../Member/Member';
+import Paginate from './../General/Paginate'
 import Aux from "../../hoc/_Aux";
 import avatar1 from '../../assets/images/user/avatar-1.jpg';
 import avatar2 from '../../assets/images/user/avatar-2.jpg';
 import avatar3 from '../../assets/images/user/avatar-3.jpg';
 
-let active = 1;
-let items = [];
-for (let number = 1; number <= 1; number++) {
-    items.push(
-        <Pagination.Item key={number} active={number === active}>
-            {number}
-        </Pagination.Item>,
-    );
-}
+
 
 class StaffsList extends React.Component {
 
@@ -81,11 +74,7 @@ class StaffsList extends React.Component {
                         </Col>
                     </Row>
                     <Row className="offset-5">
-                        <Pagination>
-                            <Pagination.Prev/>
-                            {items}
-                            <Pagination.Next/>
-                        </Pagination>
+                        <Paginate/>
                     </Row>
                 </Card>
             </Aux>
