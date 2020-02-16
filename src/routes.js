@@ -11,6 +11,8 @@ const AssociationManagerList = React.lazy(() => import('./components/Association
 const MembersList = React.lazy(() => import('./components/Member/MembersList'));
 const SpeakersList = React.lazy(() => import('./components/Speaker/SpeakersList'));
 const GroupList = React.lazy(() => import('./components/Group/GroupList'));
+const GroupCreate = React.lazy(() => import('./components/Group/GroupCreate'));
+const GroupEdit = React.lazy(() => import('./components/Group/GroupEdit'));
 const StaffsList = React.lazy(() => import('./components/Staff/StaffsList'));
 const TransactionsList = React.lazy(() => import('./components/Transaction/TransactionsList'));
 // En cours
@@ -47,8 +49,12 @@ const routes = [
     { path: '/membre/associations', exact: true, name: 'Liste des associations', component: AssociationManagerList },
     { path: '/membre/projets', exact: true, name: 'Liste des transactions', component: ProjectsList },
 
-    // BACKEND FORMS
+    // BACKEND FORMS CREATION
     { path: '/admin/creation/utilisateur', exact: true, name: 'Création d\'utilisateur', component: UserRegistration },
+    { path: '/admin/creation/groupe', exact: true, name: 'Création de groupe', component: GroupCreate },
+
+    // BACKEND FORMS EDIT
+    { path: '/admin/éditer/groupe', exact: true, name: 'Editer de groupe', component: GroupEdit },
 
 
 ];

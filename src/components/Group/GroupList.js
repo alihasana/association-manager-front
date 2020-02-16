@@ -23,9 +23,9 @@ class GroupList extends React.Component {
         })
     };
 
-    renderRedirect = () => {
+    renderRedirect = (url) => {
         if (this.state.redirect) {
-            return <Redirect to='/admin/creation/utilisateur'/>
+            return <Redirect to={url}/>
         }
     };
 
@@ -47,7 +47,8 @@ class GroupList extends React.Component {
                         <Card className='Recent-Users'>
                             <Card.Header>
                                 <Card.Title as="h5">Groupe&nbsp;&nbsp;
-                                    <Button variant="success">
+                                    {this.renderRedirect('/admin/creation/groupe')}
+                                    <Button variant="success" onClick={this.setRedirect}>
                                         + Créer un nouveau groupe
                                     </Button>
                                 </Card.Title>
@@ -62,10 +63,13 @@ class GroupList extends React.Component {
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    {this.renderRedirect('/admin/éditer/groupe')}
                                     {this.state.groups.map(group => (
                                         <Group
                                             details={group}
+                                            key={group.id}
                                             onDelete={this.handleDelete}
+                                            onEdit = {this.setRedirect}
                                         />
                                     ))}
                                     </tbody>
