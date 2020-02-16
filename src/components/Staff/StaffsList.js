@@ -1,9 +1,10 @@
 import StaffsChart from "./StaffsChart"
 import React from 'react';
-import {Row, Col, Card, Table} from 'react-bootstrap';
+import {Row, Col, Card, Table, Button} from 'react-bootstrap';
 import Member from '../Member/Member';
 import Paginate from './../General/Paginate'
 import Aux from "../../hoc/_Aux";
+import { Redirect } from 'react-router-dom';
 import avatar1 from '../../assets/images/user/avatar-1.jpg';
 import avatar2 from '../../assets/images/user/avatar-2.jpg';
 import avatar3 from '../../assets/images/user/avatar-3.jpg';
@@ -23,7 +24,32 @@ class StaffsList extends React.Component {
             {id: 7, avatar: avatar2, firstName: "Sheryl", lastName: "Sandberg", entryDate: "25/03/2014 12:32:00"},
             {id: 8, avatar: avatar2, firstName: "Ronaldo", lastName: "Vaillant", entryDate: "02/12/2013 12:32:00"},
             {id: 9, avatar: avatar2, firstName: "Brendan", lastName: "Eich", entryDate: "05/05/2012 12:32:00"},
-        ]
+        ],
+        redirectCreate: false,
+        redirectEdit: false
+    };
+
+    setRedirectCreate = () => {
+        this.setState({
+            redirectCreate: true
+        })
+    };
+    setRedirectEdit = () => {
+        this.setState({
+            redirectEdit: true
+        })
+    };
+
+    renderRedirectCreate = () => {
+        if (this.state.redirectCreate) {
+            return <Redirect to='/admin/creation/staff'/>
+        }
+    };
+
+    renderRedirectEdit = () => {
+        if (this.state.redirectEdit) {
+            return <Redirect to='/admin/éditer/staff'/>
+        }
     };
 
     handleDelete = id => {
@@ -45,7 +71,11 @@ class StaffsList extends React.Component {
                         <Col md={9} xl={12}>
                             <Card className='Recent-Users'>
                                 <Card.Header>
-                                    <Card.Title as="h5">Liste des membres</Card.Title>
+                                    <Card.Title as="h5">Liste des staffs</Card.Title>
+                                    {this.renderRedirectCreate('/admin/creation/staff')}
+                                    <Button variant="success" onClick={this.setRedirectCreate}>
+                                        + Créer un nouveau staff
+                                    </Button>
                                 </Card.Header>
                                 <Card.Body className='px-0 py-2'>
                                     <Table responsive hover>
@@ -60,11 +90,13 @@ class StaffsList extends React.Component {
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        {this.renderRedirectEdit('/admin/éditer/staff')}
                                         {this.state.members.map(member => (
                                             <Member
                                                 key={member.id}
                                                 details={member}
                                                 onDelete={this.handleDelete}
+                                                onEdit={this.setRedirectEdit}
                                             />
                                         ))}
                                         </tbody>

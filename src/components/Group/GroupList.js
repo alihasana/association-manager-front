@@ -15,18 +15,30 @@ class GroupList extends React.Component {
             {id: 4, groupName: "group4"},
             {id: 5, groupName: "group5"},
         ],
-        redirect: false
+        redirectCreate: false,
+        redirectEdit: false,
     };
 
-    setRedirect = () => {
+    setRedirectCreate = () => {
         this.setState({
-            redirect: true
+            redirectCreate: true
+        })
+    };
+    setRedirectEdit = () => {
+        this.setState({
+            redirectEdit: true
         })
     };
 
-    renderRedirect = (url) => {
-        if (this.state.redirect) {
-            return <Redirect to={url}/>
+    renderRedirectCreate = () => {
+        if (this.state.redirectCreate) {
+            return <Redirect to='/admin/creation/groupe'/>
+        }
+    };
+
+    renderRedirectEdit = () => {
+        if (this.state.redirectEdit) {
+            return <Redirect to='/admin/éditer/groupe'/>
         }
     };
 
@@ -48,8 +60,8 @@ class GroupList extends React.Component {
                         <Card className='Recent-Users'>
                             <Card.Header>
                                 <Card.Title as="h5">Groupe&nbsp;&nbsp;
-                                    {this.renderRedirect('/admin/creation/groupe')}
-                                    <Button variant="success" onClick={this.setRedirect}>
+                                    {this.renderRedirectCreate()}
+                                    <Button variant="success" onClick={this.setRedirectCreate}>
                                         + Créer un nouveau groupe
                                     </Button>
                                 </Card.Title>
@@ -64,13 +76,13 @@ class GroupList extends React.Component {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {this.renderRedirect('/admin/éditer/groupe')}
+                                    {this.renderRedirectEdit()}
                                     {this.state.groups.map(group => (
                                         <Group
                                             details={group}
                                             key={group.id}
                                             onDelete={this.handleDelete}
-                                            onEdit = {this.setRedirect}
+                                            onEdit = {this.setRedirectEdit}
                                         />
                                     ))}
                                     </tbody>

@@ -1,6 +1,5 @@
 import React from 'react';
 import $ from 'jquery';
-import UserRegistration from './components/Forms/UserRegistration';
 
 window.jQuery = $;
 window.$ = $;
@@ -9,11 +8,14 @@ global.jQuery = $;
 const Dashboard = React.lazy(() => import('./components/Dashboard/Dashboard'));
 const AssociationManagerList = React.lazy(() => import('./components/Association/AssociationsList'));
 const MembersList = React.lazy(() => import('./components/Member/MembersList'));
+const MemberCreate = React.lazy(() => import('./components/Member/MemberCreate'));
+const MemberEdit = React.lazy(() => import('./components/Member/MemberEdit'));
 const SpeakersList = React.lazy(() => import('./components/Speaker/SpeakersList'));
 const GroupList = React.lazy(() => import('./components/Group/GroupList'));
 const GroupCreate = React.lazy(() => import('./components/Group/GroupCreate'));
 const GroupEdit = React.lazy(() => import('./components/Group/GroupEdit'));
 const StaffsList = React.lazy(() => import('./components/Staff/StaffsList'));
+const StaffCreate = React.lazy(() => import('./components/Staff/StaffCreate'));
 const TransactionsList = React.lazy(() => import('./components/Transaction/TransactionsList'));
 // En cours
 const Planning = React.lazy(() => import('./components/CommingSoon'));
@@ -50,13 +52,12 @@ const routes = [
     { path: '/membre/projets', exact: true, name: 'Liste des transactions', component: ProjectsList },
 
     // BACKEND FORMS CREATION
-    { path: '/admin/creation/utilisateur', exact: true, name: 'Création d\'utilisateur', component: UserRegistration },
     { path: '/admin/creation/groupe', exact: true, name: 'Création de groupe', component: GroupCreate },
+    { path: '/admin/creation/staff', exact: true, name: 'Création de staff', component: StaffCreate },
 
     // BACKEND FORMS EDIT
     { path: '/admin/éditer/groupe', exact: true, name: 'Editer de groupe', component: GroupEdit },
-
-
+    { path: '/admin/éditer/staff', exact: true, name: 'Editer de groupe', component: StaffCreate },
 ];
 
 export default routes;
