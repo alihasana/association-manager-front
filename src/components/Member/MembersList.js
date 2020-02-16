@@ -9,6 +9,8 @@ import avatar1 from '../../assets/images/user/avatar-1.jpg';
 import avatar2 from '../../assets/images/user/avatar-2.jpg';
 import avatar3 from '../../assets/images/user/avatar-3.jpg';
 
+import Paginate from "../General/Paginate";
+
 class MembersList extends React.Component {
 
     state = {
@@ -28,11 +30,11 @@ class MembersList extends React.Component {
         })
       };
 
-      renderRedirect = () => {
+      renderRedirect = (url) => {
         if (this.state.redirect) {
-          return <Redirect to='/admin/creation/utilisateur' />
+            return <Redirect to={url}/>
         }
-      };
+    };
 
       handleDelete = id => {
         const members = [...this.state.members];
@@ -49,11 +51,12 @@ class MembersList extends React.Component {
                     <Col md={9} xl={12}>
                         <Card className='Recent-Users'>
                             <Card.Header>
-                                <Card.Title as="h5">Liste des membres</Card.Title>
-                                {this.renderRedirect()}
-                                <Button variant="success" onClick={this.setRedirect}>
-                                    + Créer un nouveau membre
-                                </Button>
+                                <Card.Title as="h5">Liste des membres&nbsp;&nbsp;
+                                    {this.renderRedirect('/admin/membres/creer')}
+                                    <Button variant="success" onClick={this.setRedirect}>
+                                        + Créer un nouveau membre
+                                    </Button>
+                                </Card.Title>
                             </Card.Header>
                             <Card.Body className='px-0 py-2'>
                                 <Table responsive hover>
@@ -68,11 +71,13 @@ class MembersList extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {this.renderRedirect('/admin/membres/modifier')}
                                         {this.state.members.map(member => (
                                             <Member
-                                                key={member.id}
                                                 details={member}
+                                                key={member.id}
                                                 onDelete={this.handleDelete}
+                                                onEdit = {this.setRedirect}
                                             />
                                         ))}
                                     </tbody>
@@ -80,6 +85,9 @@ class MembersList extends React.Component {
                             </Card.Body>
                         </Card>
                     </Col>
+                </Row>
+                <Row className="offset-5">
+                    <Paginate/>
                 </Row>
             </Aux>
         );
