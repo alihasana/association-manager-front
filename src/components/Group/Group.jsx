@@ -1,5 +1,5 @@
 import React from "react";
-import GroupButton from './../GroupButton'
+import GroupButton from '../General/GroupButton'
 
 const Group = ({ details, onDelete, onEdit }) => (
     <tr>
