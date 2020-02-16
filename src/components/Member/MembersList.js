@@ -26,21 +26,18 @@ class MembersList extends React.Component {
         this.setState({
           redirect: true
         })
-      }
+      };
 
       renderRedirect = () => {
         if (this.state.redirect) {
           return <Redirect to='/admin/creation/utilisateur' />
         }
-      }
-    
+      };
 
       handleDelete = id => {
         const members = [...this.state.members];
         const index = members.findIndex(member => member.id === id);
-    
         members.splice(index, 1);
-    
         this.setState({ members });
       };
 
@@ -55,7 +52,7 @@ class MembersList extends React.Component {
                                 <Card.Title as="h5">Liste des membres</Card.Title>
                                 {this.renderRedirect()}
                                 <Button variant="success" onClick={this.setRedirect}>
-                                    + Créer un nouveau groupe
+                                    + Créer un nouveau membre
                                 </Button>
                             </Card.Header>
                             <Card.Body className='px-0 py-2'>
