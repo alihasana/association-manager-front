@@ -24,6 +24,9 @@ const ProjectsList = React.lazy(() => import('./components/Project/ProjectsList'
 const MemberCreate = React.lazy(() => import('./components/Member/MemberCreate'));
 const MemberEdit = React.lazy(() => import('./components/Member/MemberEdit'));
 
+const SpeakerCreate = React.lazy(() => import('./components/Speaker/SpeakerCreate'));
+const SpeakerEdit = React.lazy(() => import('./components/Speaker/SpeakerEdit'));
+
 const AssociationCreate = React.lazy(() => import('./components/Association/AssociationCreate'));
 const AssociationEdit = React.lazy(() => import('./components/Association/AssociationEdit'));
 
@@ -66,6 +69,7 @@ const routes = [
     { path: '/admin/projets/creer', exact: true, name: 'Création de projet', component: ProjectCreate },
     { path: '/admin/groupe/creer', exact: true, name: 'Création de groupe', component: GroupCreate },
     { path: '/admin/staff/creer', exact: true, name: 'Création de staff', component: StaffCreate },
+    { path: '/admin/intervenant/creer', exact: true, name: 'Créer des intervenants', component: SpeakerCreate },
 
         //sadmin
     { path: '/sadmin/membres/creer', exact: true, name: 'Création de membre', component: MemberCreate },
@@ -78,6 +82,7 @@ const routes = [
     { path: '/admin/staff/modifier', exact: true, name: 'Editer de groupe', component: StaffEdit },
     { path: '/admin/membres/modifier', exact: true, name: 'Modification de membre', component: MemberEdit },
     { path: '/admin/projets/modifier', exact: true, name: 'Modification de projet', component: ProjectEdit },
+    { path: '/admin/intervenant/modifier', exact: true, name: 'Modifier des intervenants', component: SpeakerEdit },
 
         //sadmin
     { path: '/sadmin/membres/modifier', exact: true, name: 'Modification de membre', component: MemberEdit },
