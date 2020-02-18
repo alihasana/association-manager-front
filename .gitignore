@@ -24,3 +24,5 @@ yarn-error.log*
 
 #ide tem file
 /.idea
+/.history
+/.
