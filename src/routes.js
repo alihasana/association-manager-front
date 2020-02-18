@@ -17,7 +17,7 @@ const StaffCreate = React.lazy(() => import('./components/Staff/StaffCreate'));
 const StaffEdit = React.lazy(() => import('./components/Staff/StaffEdit'));
 const TransactionsList = React.lazy(() => import('./components/Transaction/TransactionsList'));
 // En cours
-const Planning = React.lazy(() => import('./components/CommingSoon'));
+const Planning = React.lazy(() => import('./components/Planning/PlanningList'));
 const ProjectsList = React.lazy(() => import('./components/Project/ProjectsList'));
 
 // FORMS INC
