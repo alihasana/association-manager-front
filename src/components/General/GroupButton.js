@@ -3,9 +3,9 @@ import {Button, ButtonGroup} from 'react-bootstrap';
 
 const GroupButton = ({ details, onDelete, onEdit }) => (
     <ButtonGroup aria-label="group">
-        <Button variant="secondary">
+        {/* <Button variant="secondary">
             <i className="fa fa-eye f-22"/>
-        </Button>
+        </Button> */}
         <Button variant="primary" onClick={() => onEdit()}>
             <i className="fa fa-edit f-22"/>
         </Button>
