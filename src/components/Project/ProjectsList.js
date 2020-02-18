@@ -61,6 +61,7 @@ class ProjectsList extends React.Component {
                                     <tr>
                                         <th>#</th>
                                         <th>Nom</th>
+                                        <th>Association</th>
                                         <th>Statut</th>
                                         <th>Date démarrage</th>
                                         <th>Date de fin</th>
