@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from "jquery";
+// eslint-disable-next-line no-unused-vars
 import OrgChart from "orgchart";
 import Aux from "../../hoc/_Aux";
 
