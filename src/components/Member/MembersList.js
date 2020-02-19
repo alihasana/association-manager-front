@@ -24,25 +24,24 @@ class MembersList extends React.Component {
         redirect: false
       };
 
-      setRedirect = () => {
+    setRedirect = () => {
         this.setState({
-          redirect: true
+            redirect: true
         })
-      };
+    };
 
-      renderRedirect = (url) => {
+    renderRedirect = (url) => {
         if (this.state.redirect) {
             return <Redirect to={url}/>
         }
     };
 
-      handleDelete = id => {
+    handleDelete = id => {
         const members = [...this.state.members];
         const index = members.findIndex(member => member.id === id);
         members.splice(index, 1);
         this.setState({ members });
-      };
-
+    };
 
     render() {
         return (

@@ -17,7 +17,8 @@ const StaffCreate = React.lazy(() => import('./components/Staff/StaffCreate'));
 const StaffEdit = React.lazy(() => import('./components/Staff/StaffEdit'));
 const TransactionsList = React.lazy(() => import('./components/Transaction/TransactionsList'));
 // En cours
-const Planning = React.lazy(() => import('./components/Planning/PlanningList'));
+const Planning = React.lazy(() => import('./components/Planning/List'));
+const PlanningCreate = React.lazy(() => import('./components/Planning/Create'));
 const ProjectsList = React.lazy(() => import('./components/Project/ProjectsList'));
 
 // FORMS INC
@@ -57,7 +58,6 @@ const routes = [
     { path: '/admin/projets', exact: true, name: 'Liste des transactions', component: ProjectsList },
     { path: '/admin/plannings', exact: true, name: 'Planning', component: Planning },
 
-
     // MEMBRE
     { path: '/membre', exact: true, name: 'Dashboard', component: Dashboard },
     { path: '/membre/associations', exact: true, name: 'Liste des associations', component: AssociationManagerList },
@@ -70,11 +70,13 @@ const routes = [
     { path: '/admin/groupe/creer', exact: true, name: 'Création de groupe', component: GroupCreate },
     { path: '/admin/staff/creer', exact: true, name: 'Création de staff', component: StaffCreate },
     { path: '/admin/intervenant/creer', exact: true, name: 'Créer des intervenants', component: SpeakerCreate },
+    { path: '/admin/planning/creer', exact: true, name: 'Création de Planning', component: PlanningCreate },
 
         //sadmin
     { path: '/sadmin/membres/creer', exact: true, name: 'Création de membre', component: MemberCreate },
     { path: '/sadmin/associations/creer', exact: true, name: 'Création d\'une association', component: AssociationCreate },
     { path: '/sadmin/projets/creer', exact: true, name: 'Création de projet', component: ProjectCreate },
+    { path: '/sadmin/planning/creer', exact: true, name: 'Création de Planning', component: PlanningCreate },
 
     // BACKEND FORMS EDIT
         //admin

@@ -1,5 +1,6 @@
 import React from 'react';
-import {Row, Col, Card} from 'react-bootstrap';
+import {Row, Col, Card, Button} from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import Aux from "../../hoc/_Aux";
@@ -43,7 +44,30 @@ const MyCalendar = props => (
   )
 
 
-class CommingSoon extends React.Component {
+class PlanningList extends React.Component {
+    state = {
+      redirect: false
+    };
+
+    setRedirect = () => {
+        this.setState({
+            redirect: true
+        })
+    };
+
+    renderRedirect = (url) => {
+        if (this.state.redirect) {
+            return <Redirect to={url}/>
+        }
+    };
+
+    handleDelete = id => {
+        const members = [...this.state.members];
+        const index = members.findIndex(member => member.id === id);
+        members.splice(index, 1);
+        this.setState({ members });
+    };
+
     render() {
         return (
             <Aux>
@@ -52,7 +76,10 @@ class CommingSoon extends React.Component {
                         <Card>
                             <Card.Header>
                                 <Card.Title as="h5">Plannings</Card.Title>
-                                {/* <span className="d-block m-t-5">use props <code>hover</code> with <code>Table</code> component</span> */}
+                                {this.renderRedirect('/admin/planning/creer')}
+                                    <Button variant="success" onClick={this.setRedirect}>
+                                        + Créer un nouveau évenement
+                                    </Button>
                             </Card.Header>
                             <Card.Body>
                                 <MyCalendar/>
@@ -65,4 +92,4 @@ class CommingSoon extends React.Component {
     }
 }
 
-export default CommingSoon;
+export default PlanningList;
