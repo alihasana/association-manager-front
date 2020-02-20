@@ -68,26 +68,32 @@ const routes = [
     { path: '/admin/membres/creer', exact: true, name: 'Création de membre', component: MemberCreate },
     { path: '/admin/projets/creer', exact: true, name: 'Création de projet', component: ProjectCreate },
     { path: '/admin/groupe/creer', exact: true, name: 'Création de groupe', component: GroupCreate },
-    { path: '/admin/staff/creer', exact: true, name: 'Création de staff', component: StaffCreate },
-    { path: '/admin/intervenant/creer', exact: true, name: 'Créer des intervenants', component: SpeakerCreate },
+    { path: '/admin/staffs/creer', exact: true, name: 'Création de staff', component: StaffCreate },
+    { path: '/admin/intervenants/creer', exact: true, name: 'Créer des intervenants', component: SpeakerCreate },
 
         //sadmin
     { path: '/sadmin/membres/creer', exact: true, name: 'Création de membre', component: MemberCreate },
     { path: '/sadmin/associations/creer', exact: true, name: 'Création d\'une association', component: AssociationCreate },
     { path: '/sadmin/projets/creer', exact: true, name: 'Création de projet', component: ProjectCreate },
+    { path: '/sadmin/groupe/creer', exact: true, name: 'Création de groupe', component: GroupCreate },
+    { path: '/sadmin/staffs/creer', exact: true, name: 'Création de staff', component: StaffCreate },
+    { path: '/sadmin/intervenants/creer', exact: true, name: 'Créer des intervenants', component: SpeakerCreate },
 
     // BACKEND FORMS EDIT
         //admin
     { path: '/admin/groupe/modifier', exact: true, name: 'Editer de groupe', component: GroupEdit },
-    { path: '/admin/staff/modifier', exact: true, name: 'Editer de groupe', component: StaffEdit },
+    { path: '/admin/staffs/modifier', exact: true, name: 'Editer de groupe', component: StaffEdit },
     { path: '/admin/membres/modifier', exact: true, name: 'Modification de membre', component: MemberEdit },
     { path: '/admin/projets/modifier', exact: true, name: 'Modification de projet', component: ProjectEdit },
-    { path: '/admin/intervenant/modifier', exact: true, name: 'Modifier des intervenants', component: SpeakerEdit },
+    { path: '/admin/intervenants/modifier', exact: true, name: 'Modifier des intervenants', component: SpeakerEdit },
 
         //sadmin
     { path: '/sadmin/membres/modifier', exact: true, name: 'Modification de membre', component: MemberEdit },
+    { path: '/sadmin/groupe/modifier', exact: true, name: 'Editer de groupe', component: GroupEdit },
+    { path: '/sadmin/staffs/modifier', exact: true, name: 'Editer de groupe', component: StaffEdit },
     { path: '/sadmin/associations/modifier', exact: true, name: 'Modification d\'une association', component: AssociationEdit },
     { path: '/sadmin/projets/modifier', exact: true, name: 'Modification de projet', component: ProjectEdit },
+    { path: '/sadmin/intervenants/modifier', exact: true, name: 'Modifier des intervenants', component: SpeakerEdit },
 ];
 
 export default routes;

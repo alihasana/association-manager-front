@@ -20,7 +20,8 @@ class AssocationsList extends React.Component {
           { id: 5, name: "Croix rouge", type: "Association...", entryDate: "25/01/2020 12:32:00" },
         ],
         redirectCreate: false,
-        redirectEdit: false
+        redirectEdit: false,
+        isSuperAdmin: window.location.href.indexOf("sadmin") !== -1
       };
 
 
@@ -59,9 +60,24 @@ class AssocationsList extends React.Component {
         associations.splice(index, 1);
     
         this.setState({ associations });
-      };      
-      
-    render() {
+      };  
+
+    render() {  
+        
+        // Start Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
+        const isSadmin = window.location.href.indexOf("sadmin") !== -1
+        let col;
+        let btnCreate;
+
+        if(isSadmin){
+            col = <th>Actions</th>;
+            btnCreate = 
+                <Button variant="success" onClick={this.setRedirectCreate}>
+                    + Créer une nouvelle association
+                </Button>
+        }
+        // End Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
+        
         return (
             <Aux>
                 <Row>
@@ -70,9 +86,7 @@ class AssocationsList extends React.Component {
                             <Card.Header>
                                 <Card.Title as="h5">Liste des associations &nbsp;&nbsp;
                                     {this.renderRedirectCreate('/sadmin/associations/creer')}
-                                    <Button variant="success" onClick={this.setRedirectCreate}>
-                                        + Créer une nouvelle association
-                                    </Button>
+                                    {btnCreate}
                                 </Card.Title>
                             </Card.Header>
 
@@ -84,7 +98,7 @@ class AssocationsList extends React.Component {
                                         <th>Nom</th>
                                         <th>Type</th>
                                         <th>Date d'entrée</th>
-                                        <th>Actions</th>
+                                        {col}
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -92,12 +106,11 @@ class AssocationsList extends React.Component {
                                         {this.state.associations.map(association => (
                                             <Association
                                                 details={association}
-                                                key={association.id}                                                
-                                                onDelete={this.handleDelete}
                                                 onEdit = {this.setRedirectEdit}
+                                                onDelete = {this.handleDelete}
+                                                isSuperAdmin={this.state.isSuperAdmin}
                                             />
                                         ))}
-                                        {/* <AssociationForm onAssociationAdd={this.handleAdd} /> */}
                                     </tbody>
                                 </Table>
                             </Card.Body>

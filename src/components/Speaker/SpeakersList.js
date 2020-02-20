@@ -17,28 +17,31 @@ class SpeakerList extends React.Component {
         ],
         redirectCreate: false,
         redirectEdit: false,
+        isAdminOrSuperAdmin: window.location.href.indexOf("admin") !== -1
     };
 
     setRedirectCreate = () => {
         this.setState({
-            redirectCreate: true
+          redirectCreate: true
         })
-    };
-    setRedirectEdit = () => {
-        this.setState({
-            redirectEdit: true
-        })
-    };
+      };
 
-    renderRedirectCreate = () => {
+      setRedirectEdit = () => {
+        this.setState({
+          redirectEdit: true
+        })
+      };
+
+      renderRedirectCreate = (url) => {
         if (this.state.redirectCreate) {
-            return <Redirect to='/admin/intervenant/creer'/>
+
+            return <Redirect to={url}/>
         }
     };
 
-    renderRedirectEdit = () => {
+      renderRedirectEdit = (url) => {
         if (this.state.redirectEdit) {
-            return <Redirect to='/admin/intervenant/modifier'/>
+            return <Redirect to={url}/>
         }
     };
 
@@ -50,6 +53,51 @@ class SpeakerList extends React.Component {
     };
 
     render() {
+
+        // Start Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
+        const isAdmin = window.location.href.indexOf("/admin") !== -1
+        const isSAdmin = window.location.href.indexOf("sadmin") !== -1
+
+        let col;
+
+        if(isAdmin || isSAdmin){
+            col = <th>Actions</th>
+        }
+
+        //Create
+        let createAdminLink = this.renderRedirectCreate('/admin/intervenants/creer')
+        let createSuperAdminLink = this.renderRedirectCreate('/sadmin/intervenants/creer')
+        let authorizedCreate;
+        //Edit
+        let editAdminLink = this.renderRedirectEdit('/admin/intervenants/modifier')
+        let editSuperAdminLink = this.renderRedirectEdit('/sadmin/intervenants/modifier')
+        let authorizedEdit;
+
+        // Add Speaker
+        function addSpeaker(){
+            
+            if(isAdmin){
+                authorizedCreate = createAdminLink
+            } else {
+                authorizedCreate = createSuperAdminLink
+            }
+            return authorizedCreate
+        }
+
+        // Edit Speaker
+        function editSpeaker(){
+            
+            if(isAdmin){
+                authorizedEdit = editAdminLink
+            } else {
+                authorizedEdit = editSuperAdminLink
+            }
+            return authorizedEdit
+        }
+       
+        // End Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
+
+
         return (
             <Aux>
                 <Row>
@@ -57,10 +105,11 @@ class SpeakerList extends React.Component {
                         <Card>
                             <Card.Header>
                                 <Card.Title as="h5">Liste des intervenants</Card.Title>
-                                {this.renderRedirectCreate()}
-                                    <Button variant="success" onClick={this.setRedirectCreate}>
-                                        + Créer un nouveau intervenant
-                                    </Button>
+                                {/* {this.renderRedirectCreate('/admin/intervenants/creer')} */}
+                                {addSpeaker()}
+                                <Button variant="success" onClick={this.setRedirectCreate}>
+                                    + Créer un nouveau intervenant
+                                </Button>
                             </Card.Header>
                             <Card.Body>
                                 <Table responsive hover>
@@ -70,17 +119,18 @@ class SpeakerList extends React.Component {
                                         <th>Nom</th>
                                         <th>Prénom</th>
                                         <th>Email</th>
-                                        <th>Actions</th>
+                                        {col}
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {this.renderRedirectEdit()}
+                                    {editSpeaker()}
                                     {this.state.speakers.map(speaker => (
                                         <Speaker
                                             key={speaker.id}
                                             details={speaker}
                                             onDelete={this.handleDelete}
                                             onEdit={this.setRedirectEdit}
+                                            isAdminOrSuperAdmin={this.state.isAdminOrSuperAdmin}
                                         />
                                     ))}
                                     </tbody>

@@ -16,13 +16,34 @@ class ProjectCreate extends React.Component {
         })
       }
 
-      renderRedirect = () => {
+      renderRedirect = (url) => {
         if (this.state.redirect) {
-          return <Redirect to='/admin/projets' />
+          return <Redirect to={url} />
         }
-      }
+      };
 
     render() {
+
+        // Start Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
+        const isAdmin = window.location.href.indexOf("/admin") !== -1
+        //Create
+        let adminLink = this.renderRedirect('/admin/projets')
+        let superAdminLink = this.renderRedirect('/sadmin/projets')
+        let redirectUser;
+
+        // Edit Project
+        function redirectLink(){
+            
+            if(isAdmin){
+                redirectUser = adminLink
+                // editLink = this.renderRedirectEdit('/admin/projets/modifier')
+            } else {
+                redirectUser = superAdminLink
+            }
+            return redirectUser
+        }
+       
+        // End Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
 
         return (
             <Aux>
@@ -81,7 +102,7 @@ class ProjectCreate extends React.Component {
                                                 <Form.Text className="text-muted">
                                                 </Form.Text>
                                             </Form.Group>
-                                            {this.renderRedirect()}
+                                            {redirectLink()}
                                             <Button variant="primary" onClick={this.setRedirect}>
                                             Submit
                                             </Button>

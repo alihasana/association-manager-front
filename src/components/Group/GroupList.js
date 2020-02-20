@@ -17,28 +17,31 @@ class GroupList extends React.Component {
         ],
         redirectCreate: false,
         redirectEdit: false,
+        isAdminOrSuperAdmin: window.location.href.indexOf("admin") !== -1
     };
 
     setRedirectCreate = () => {
         this.setState({
-            redirectCreate: true
+          redirectCreate: true
         })
-    };
-    setRedirectEdit = () => {
-        this.setState({
-            redirectEdit: true
-        })
-    };
+      };
 
-    renderRedirectCreate = () => {
+      setRedirectEdit = () => {
+        this.setState({
+          redirectEdit: true
+        })
+      };
+
+      renderRedirectCreate = (url) => {
         if (this.state.redirectCreate) {
-            return <Redirect to='/admin/groupe/creer'/>
+
+            return <Redirect to={url}/>
         }
     };
 
-    renderRedirectEdit = () => {
+      renderRedirectEdit = (url) => {
         if (this.state.redirectEdit) {
-            return <Redirect to='/admin/groupe/modifier'/>
+            return <Redirect to={url}/>
         }
     };
 
@@ -53,6 +56,49 @@ class GroupList extends React.Component {
     };
 
     render() {
+
+        // Start Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
+        const isAdmin = window.location.href.indexOf("/admin") !== -1
+        const isSAdmin = window.location.href.indexOf("sadmin") !== -1
+        let col;
+
+        if(isAdmin || isSAdmin){
+            col = <th>Actions</th>
+        }
+
+        //Create
+        let createAdminLink = this.renderRedirectCreate('/admin/groupe/creer')
+        let createSuperAdminLink = this.renderRedirectCreate('/sadmin/groupe/creer')
+        let authorizedCreate;
+        //Edit
+        let editAdminLink = this.renderRedirectEdit('/admin/groupe/modifier')
+        let editSuperAdminLink = this.renderRedirectEdit('/sadmin/groupe/modifier')
+        let authorizedEdit;
+
+        // Add Project
+        function addGroup(){
+            
+            if(isAdmin){
+                authorizedCreate = createAdminLink
+            } else {
+                authorizedCreate = createSuperAdminLink
+            }
+            return authorizedCreate
+        }
+
+        // Edit Project
+        function editGroup(){
+            
+            if(isAdmin){
+                authorizedEdit = editAdminLink
+            } else {
+                authorizedEdit = editSuperAdminLink
+            }
+            return authorizedEdit
+        }
+       
+        // End Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
+
         return (
             <Aux>
                 <Row>
@@ -60,7 +106,7 @@ class GroupList extends React.Component {
                         <Card className='Recent-Users'>
                             <Card.Header>
                                 <Card.Title as="h5">Groupe&nbsp;&nbsp;
-                                    {this.renderRedirectCreate()}
+                                    {addGroup()}
                                     <Button variant="success" onClick={this.setRedirectCreate}>
                                         + Créer un nouveau groupe
                                     </Button>
@@ -72,17 +118,18 @@ class GroupList extends React.Component {
                                     <tr>
                                         <th>#</th>
                                         <th>Groupe Nom</th>
-                                        <th>Action</th>
+                                        {col}
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {this.renderRedirectEdit()}
+                                    {editGroup()}
                                     {this.state.groups.map(group => (
                                         <Group
                                             details={group}
                                             key={group.id}
                                             onDelete={this.handleDelete}
                                             onEdit = {this.setRedirectEdit}
+                                            isAdminOrSuperAdmin={this.state.isAdminOrSuperAdmin}
                                         />
                                     ))}
                                     </tbody>

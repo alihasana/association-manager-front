@@ -11,18 +11,38 @@ class GroupCreate extends React.Component {
 
 
     setRedirect = () => {
-        this.setState({
-          redirect: true
-        })
-      };
+    this.setState({
+        redirect: true
+    })
+    };
 
-      renderRedirect = () => {
-        if (this.state.redirect) {
-          return <Redirect to='/admin/groupe' />
-        }
-      };
+    renderRedirect = (url) => {
+    if (this.state.redirect) {
+        return <Redirect to={url} />
+    }
+    };
 
     render() {
+
+        // Start Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
+        const isAdmin = window.location.href.indexOf("/admin") !== -1
+        //Create
+        let adminLink = this.renderRedirect('/admin/groupe')
+        let superAdminLink = this.renderRedirect('/sadmin/groupe')
+        let redirectUser;
+
+        // Edit Project
+        function redirectLink(){
+            
+            if(isAdmin){
+                redirectUser = adminLink
+            } else {
+                redirectUser = superAdminLink
+            }
+            return redirectUser
+        }
+        
+        // End Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
 
         return (
             <Aux>
@@ -41,12 +61,12 @@ class GroupCreate extends React.Component {
                                                 <Form.Control
                                                     type="text"
                                                     placeholder="Le nom de groupe"
-                                                    value = "groupe nom"
+                                                    value = "Groupe 1"
                                                 />
                                                 <Form.Text className="text-muted">
                                                 </Form.Text>
                                             </Form.Group>
-                                            {this.renderRedirect()}
+                                            {redirectLink()}
                                             <Button variant="primary" onClick={this.setRedirect}>
                                             Submit
                                             </Button>
