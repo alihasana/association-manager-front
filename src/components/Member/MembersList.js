@@ -30,7 +30,7 @@ class MembersList extends React.Component {
         this.setState({
           redirectCreate: true
         })
-      };
+    };
 
       setRedirectEdit = () => {
         this.setState({
@@ -51,13 +51,12 @@ class MembersList extends React.Component {
         }
     };
 
-      handleDelete = id => {
+    handleDelete = id => {
         const members = [...this.state.members];
         const index = members.findIndex(member => member.id === id);
         members.splice(index, 1);
         this.setState({ members });
-      };
-
+    };
 
     render() {
 

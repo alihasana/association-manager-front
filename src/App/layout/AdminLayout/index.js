@@ -70,7 +70,7 @@ class AdminLayout extends Component {
                                             <Suspense fallback={<Loader/>}>
                                                 <Switch>
                                                     {menu}
-                                                    <Redirect from="/" to={this.props.defaultPath} />
+                                                    <Redirect to="/" />
                                                 </Switch>
                                             </Suspense>
                                         </div>

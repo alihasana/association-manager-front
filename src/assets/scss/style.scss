@@ -56,6 +56,27 @@ File: style.css
 
 @import "partials/third-party/third-party";
 
+@import 'react-big-calendar/lib/sass/styles';
+@import 'react-big-calendar/lib/addons/dragAndDrop/styles'; // if using DnD
+
+// Paning Color
+
+.lightGreen {
+  color: lightgreen;
+}
+.lightYellow {
+  color: lightyellow;
+}
+.lightGray {
+  color: lightgray;
+}
+.orange {
+  color: orange;
+}
+.lightBlue {
+  color: lightblue;
+}
+
 // Org Chart
 @import "~orgchart/dist/css/jquery.orgchart.min.css";
 
