@@ -11,18 +11,39 @@ class MemberCreate extends React.Component {
 
 
     setRedirect = () => {
-        this.setState({
-          redirect: true
-        })
-      }
+    this.setState({
+        redirect: true
+    })
+    }
 
-      renderRedirect = () => {
-        if (this.state.redirect) {
-          return <Redirect to='/admin/membres' />
-        }
-      }
+    renderRedirect = (url) => {
+    if (this.state.redirect) {
+        return <Redirect to={url} />
+    }
+    };
 
     render() {
+
+        // Start Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
+        const isAdmin = window.location.href.indexOf("/admin") !== -1
+        //Create
+        let adminLink = this.renderRedirect('/admin/membres')
+        let superAdminLink = this.renderRedirect('/sadmin/membres')
+        let redirectUser;
+
+        // Edit Project
+        function redirectLink(){
+            
+            if(isAdmin){
+                redirectUser = adminLink
+                // editLink = this.renderRedirectEdit('/admin/projets/modifier')
+            } else {
+                redirectUser = superAdminLink
+            }
+            return redirectUser
+        }
+       
+        // End Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
 
         return (
             <Aux>
@@ -72,7 +93,7 @@ class MemberCreate extends React.Component {
                                                 <Form.Check type="checkbox" label="Accord d'utilisation" />
                                             </Form.Group>
 
-                                            {this.renderRedirect()}
+                                            {redirectLink()}
                                             <Button variant="primary" onClick={this.setRedirect}>
                                             Submit
                                             </Button>

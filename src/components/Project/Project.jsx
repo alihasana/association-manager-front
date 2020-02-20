@@ -1,7 +1,7 @@
 import React from "react";
 import GroupButton from '../General/GroupButton'
 
-const Project = ({ details, onDelete, onEdit }) => (
+const Project = ({ details, onDelete, onEdit, isAdminOrSuperAdmin }) => (
     <tr>
         <th>{details.id}</th>
         <td>{details.name}</td>
@@ -10,13 +10,15 @@ const Project = ({ details, onDelete, onEdit }) => (
         <td>{details.startDate}</td>
         <td>{details.deadLine}</td>
         
-        <td>
-            <GroupButton
-                details={details}
-                onDelete={onDelete}
-                onEdit = {onEdit}
-            />
-        </td>
+        {(isAdminOrSuperAdmin) ? (
+            <td>
+                <GroupButton
+                    details={details}
+                    onDelete={onDelete}
+                    onEdit = {onEdit}
+                />
+            </td>
+        ):<td></td>}
     </tr>
 );
 

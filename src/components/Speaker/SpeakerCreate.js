@@ -10,20 +10,39 @@ class SpeakerCreate extends React.Component {
       };
 
 
-    setRedirect = () => {
+      setRedirect = () => {
         this.setState({
           redirect: true
         })
       }
 
-      renderRedirect = () => {
+      renderRedirect = (url) => {
         if (this.state.redirect) {
-          return <Redirect to='/admin/intervenants' />
+          return <Redirect to={url} />
         }
-      }
+      };
 
     render() {
 
+        // Start Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
+        const isAdmin = window.location.href.indexOf("/admin") !== -1
+        //Create
+        let adminLink = this.renderRedirect('/admin/intervenants')
+        let superAdminLink = this.renderRedirect('/sadmin/intervenants')
+        let redirectUser;
+
+        // Edit Project
+        function redirectLink(){
+            
+            if(isAdmin){
+                redirectUser = adminLink
+            } else {
+                redirectUser = superAdminLink
+            }
+            return redirectUser
+        }
+       
+        // End Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
         return (
             <Aux>
                 <Row>
@@ -68,7 +87,7 @@ class SpeakerCreate extends React.Component {
                                                 </Form.Text>
                                             </Form.Group>
 
-                                            {this.renderRedirect()}
+                                            {redirectLink()}
                                             <Button variant="primary" onClick={this.setRedirect}>
                                             Submit
                                             </Button>

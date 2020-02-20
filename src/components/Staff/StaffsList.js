@@ -26,29 +26,32 @@ class StaffsList extends React.Component {
             {id: 9, avatar: avatar2, firstName: "Brendan", lastName: "Eich", entryDate: "05/05/2012 12:32:00"},
         ],
         redirectCreate: false,
-        redirectEdit: false
+        redirectEdit: false,
+        isAdminOrSuperAdmin: window.location.href.indexOf("admin") !== -1
     };
 
     setRedirectCreate = () => {
         this.setState({
-            redirectCreate: true
+          redirectCreate: true
         })
-    };
-    setRedirectEdit = () => {
-        this.setState({
-            redirectEdit: true
-        })
-    };
+      };
 
-    renderRedirectCreate = () => {
+      setRedirectEdit = () => {
+        this.setState({
+          redirectEdit: true
+        })
+      };
+
+      renderRedirectCreate = (url) => {
         if (this.state.redirectCreate) {
-            return <Redirect to='/admin/staff/creer'/>
+
+            return <Redirect to={url}/>
         }
     };
 
-    renderRedirectEdit = () => {
+      renderRedirectEdit = (url) => {
         if (this.state.redirectEdit) {
-            return <Redirect to='/admin/staff/modifier'/>
+            return <Redirect to={url}/>
         }
     };
 
@@ -62,6 +65,49 @@ class StaffsList extends React.Component {
     };
 
     render() {
+
+        // Start Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
+        const isAdmin = window.location.href.indexOf("/admin") !== -1
+        const isSAdmin = window.location.href.indexOf("sadmin") !== -1
+        let col;
+
+        if(isAdmin || isSAdmin){
+            col = <th>Actions</th>
+        }
+
+        //Create
+        let createAdminLink = this.renderRedirectCreate('/admin/staffs/creer')
+        let createSuperAdminLink = this.renderRedirectCreate('/sadmin/staffs/creer')
+        let authorizedCreate;
+        //Edit
+        let editAdminLink = this.renderRedirectEdit('/admin/staffs/modifier')
+        let editSuperAdminLink = this.renderRedirectEdit('/sadmin/staffs/modifier')
+        let authorizedEdit;
+
+        // Add Project
+        function addStaff(){
+            
+            if(isAdmin){
+                authorizedCreate = createAdminLink
+            } else {
+                authorizedCreate = createSuperAdminLink
+            }
+            return authorizedCreate
+        }
+
+        // Edit Project
+        function editStaff(){
+            
+            if(isAdmin){
+                authorizedEdit = editAdminLink
+            } else {
+                authorizedEdit = editSuperAdminLink
+            }
+            return authorizedEdit
+        }
+       
+        // End Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
+
         return (
             <Aux>
                 {/*Include organisational chart for staff*/}
@@ -72,7 +118,7 @@ class StaffsList extends React.Component {
                             <Card className='Recent-Users'>
                                 <Card.Header>
                                     <Card.Title as="h5">Liste des staffs</Card.Title>
-                                    {this.renderRedirectCreate()}
+                                    {addStaff()}
                                     <Button variant="success" onClick={this.setRedirectCreate}>
                                         + Créer un nouveau staff
                                     </Button>
@@ -86,17 +132,18 @@ class StaffsList extends React.Component {
                                             <th>Nom</th>
                                             <th>Prénom</th>
                                             <th>Date d'entrée</th>
-                                            <th>Actions</th>
+                                            {col}
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {this.renderRedirectEdit('/admin/éditer/staff')}
+                                        {editStaff()}
                                         {this.state.members.map(member => (
                                             <Member
                                                 key={member.id}
                                                 details={member}
                                                 onDelete={this.handleDelete}
                                                 onEdit={this.setRedirectEdit}
+                                                isAdminOrSuperAdmin={this.state.isAdminOrSuperAdmin}
                                             />
                                         ))}
                                         </tbody>

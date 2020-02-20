@@ -16,17 +16,31 @@ class ProjectsList extends React.Component {
           { id: 4, name: "Utiliser le dispositif local d’accompagnement...", owner:"Secours populaire", status: "En erreur", startDate: "25/12/2018 12:32:00", deadLine: "25/12/2019 12:32:00" },
           { id: 5, name: "L'informatique pour tous", owner:"Resto du coeur", status: "Annulé", startDate: "25/12/2018 12:32:00", deadLine: "25/12/2019 12:32:00" },
         ],
-        redirect: false
+        redirect: false,
+        isAdminOrSuperAdmin: window.location.href.indexOf("admin") !== -1
       };
 
-      setRedirect = () => {
+      setRedirectCreate = () => {
         this.setState({
-          redirect: true
+          redirectCreate: true
         })
       };
 
-      renderRedirect = (url) => {
-        if (this.state.redirect) {
+      setRedirectEdit = () => {
+        this.setState({
+          redirectEdit: true
+        })
+      };
+
+      renderRedirectCreate = (url) => {
+        if (this.state.redirectCreate) {
+
+            return <Redirect to={url}/>
+        }
+    };
+
+      renderRedirectEdit = (url) => {
+        if (this.state.redirectEdit) {
             return <Redirect to={url}/>
         }
     };
@@ -41,6 +55,49 @@ class ProjectsList extends React.Component {
       };
 
     render() {
+        // Start Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
+        const isAdmin = window.location.href.indexOf("/admin") !== -1
+        const isSAdmin = window.location.href.indexOf("sadmin") !== -1
+        let col;
+
+        if(isAdmin || isSAdmin){
+            col = <th>Actions</th>
+        }
+
+        //Create
+        let createAdminLink = this.renderRedirectCreate('/admin/projets/creer')
+        let createSuperAdminLink = this.renderRedirectCreate('/sadmin/projets/creer')
+        let authorizedCreate;
+        //Edit
+        let editAdminLink = this.renderRedirectEdit('/admin/projets/modifier')
+        let editSuperAdminLink = this.renderRedirectEdit('/sadmin/projets/modifier')
+        let authorizedEdit;
+
+        // Add Project
+        function addProject(){
+            
+            if(isAdmin){
+                authorizedCreate = createAdminLink
+            } else {
+                authorizedCreate = createSuperAdminLink
+            }
+            return authorizedCreate
+        }
+
+        // Edit Project
+        function editProject(){
+            
+            if(isAdmin){
+                authorizedEdit = editAdminLink
+                // editLink = this.renderRedirectEdit('/admin/projets/modifier')
+            } else {
+                authorizedEdit = editSuperAdminLink
+            }
+            return authorizedEdit
+        }
+       
+        // End Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
+        
         return (
             <Aux>
                 <Row>
@@ -48,8 +105,8 @@ class ProjectsList extends React.Component {
                         <Card className='Recent-Users'>
                             <Card.Header>
                                 <Card.Title as="h5">Liste des projets&nbsp;&nbsp;
-                                    {this.renderRedirect('/admin/projets/creer')}
-                                    <Button variant="success" onClick={this.setRedirect}>
+                                   {addProject()}
+                                    <Button variant="success" onClick={this.setRedirectCreate}>
                                         + Créer un nouveau projet
                                     </Button>
                                 </Card.Title>
@@ -65,17 +122,19 @@ class ProjectsList extends React.Component {
                                         <th>Statut</th>
                                         <th>Date démarrage</th>
                                         <th>Date de fin</th>
-                                        <th>Actions</th>
+                                        {/* <th>Actions</th> */}
+                                        {col}
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {this.renderRedirect('/admin/projets/modifier')}
+                                    {editProject()}
                                     {this.state.projects.map(project => (
                                         <Project
                                             details={project}
                                             key={project.id}
                                             onDelete={this.handleDelete}
-                                            onEdit = {this.setRedirect}
+                                            onEdit = {this.setRedirectEdit}
+                                            isAdminOrSuperAdmin={this.state.isAdminOrSuperAdmin}
                                         />
                                     ))}
                                     </tbody>
