@@ -59,9 +59,14 @@ class ProjectsList extends React.Component {
         const isAdmin = window.location.href.indexOf("/admin") !== -1
         const isSAdmin = window.location.href.indexOf("sadmin") !== -1
         let col;
+        let button;
 
         if(isAdmin || isSAdmin){
             col = <th>Actions</th>
+
+            button = <Button variant="success" onClick={this.setRedirectCreate}>
+                        + Créer un nouveau projet
+                    </Button>
         }
 
         //Create
@@ -106,9 +111,7 @@ class ProjectsList extends React.Component {
                             <Card.Header>
                                 <Card.Title as="h5">Liste des projets&nbsp;&nbsp;
                                    {addProject()}
-                                    <Button variant="success" onClick={this.setRedirectCreate}>
-                                        + Créer un nouveau projet
-                                    </Button>
+                                    {button}
                                 </Card.Title>
                             </Card.Header>
 
