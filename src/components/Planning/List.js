@@ -76,7 +76,7 @@ class PlanningList extends React.Component {
                         <Card>
                             <Card.Header>
                                 <Card.Title as="h5">Plannings</Card.Title>
-                                {this.renderRedirect('/admin/planning/creer')}
+                                {this.renderRedirect('/admin/plannings/creer')}
                                     <Button variant="success" onClick={this.setRedirect}>
                                         + Créer un nouveau évenement
                                     </Button>

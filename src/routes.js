@@ -70,7 +70,7 @@ const routes = [
     { path: '/admin/groupe/creer', exact: true, name: 'Création de groupe', component: GroupCreate },
     { path: '/admin/staffs/creer', exact: true, name: 'Création de staff', component: StaffCreate },
     { path: '/admin/intervenants/creer', exact: true, name: 'Créer des intervenants', component: SpeakerCreate },
-    { path: '/admin/planning/creer', exact: true, name: 'Création de Planning', component: PlanningCreate },
+    { path: '/admin/plannings/creer', exact: true, name: 'Création de Planning', component: PlanningCreate },
 
         //sadmin
     { path: '/sadmin/membres/creer', exact: true, name: 'Création de membre', component: MemberCreate },
@@ -79,7 +79,7 @@ const routes = [
     { path: '/sadmin/groupe/creer', exact: true, name: 'Création de groupe', component: GroupCreate },
     { path: '/sadmin/staffs/creer', exact: true, name: 'Création de staff', component: StaffCreate },
     { path: '/sadmin/intervenants/creer', exact: true, name: 'Créer des intervenants', component: SpeakerCreate },
-    { path: '/sadmin/planning/creer', exact: true, name: 'Création de Planning', component: PlanningCreate },
+    { path: '/sadmin/plannings/creer', exact: true, name: 'Création de Planning', component: PlanningCreate },
 
     // BACKEND FORMS EDIT
         //admin
