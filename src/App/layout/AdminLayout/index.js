@@ -12,7 +12,16 @@ import routes from "../../../routes";
 import Aux from "../../../hoc/_Aux";
 import * as actionTypes from "../../../store/actions";
 
+import {Row, Col} from 'react-bootstrap';
+
 import './app.scss';
+
+import carousel1 from './announce/header_small02-1500x250.jpg';
+
+
+// Start import carousel
+
+// End import carousel
 
 class AdminLayout extends Component {
 
@@ -73,6 +82,19 @@ class AdminLayout extends Component {
                                                     <Redirect to="/" />
                                                 </Switch>
                                             </Suspense>
+                                        </div>
+                                    </div>
+                                    <div className="main-body">
+                                        <div className="page-wrapper">
+                                        <Row>
+                                            <Col md={6} xl={12}>
+                                                <div className="row d-flex align-items-center">
+                                                    <div className="col-9">
+                                                        <img className="" style={{width: ''}} src={carousel1} alt="activity-user"/>
+                                                    </div>
+                                                </div>
+                                            </Col>
+                                        </Row>
                                         </div>
                                     </div>
                                 </div>
