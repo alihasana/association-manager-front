@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Card, Table, Button, Form} from 'react-bootstrap';
+import {Row, Col, Card, Table, Button} from 'react-bootstrap';
 import Paginate from "../General/Paginate";
 import Announce from './Announce';
 import Aux from "../../hoc/_Aux";
@@ -65,12 +65,12 @@ class AnnounceList extends React.Component {
         }
 
         //Create
-        let createAdminLink = this.renderRedirectCreate('/admin/announces/creer')
-        let createSuperAdminLink = this.renderRedirectCreate('/sadmin/announces/creer')
+        let createAdminLink = this.renderRedirectCreate('/admin/annonces/creer')
+        let createSuperAdminLink = this.renderRedirectCreate('/sadmin/annonces/creer')
         let authorizedCreate;
         //Edit/sadmin/announces/creer
-        let editAdminLink = this.renderRedirectEdit('/admin/announces/modifier')
-        let editSuperAdminLink = this.renderRedirectEdit('/sadmin/announces/modifier')
+        let editAdminLink = this.renderRedirectEdit('/admin/annonces/modifier')
+        let editSuperAdminLink = this.renderRedirectEdit('/sadmin/annonces/modifier')
         let authorizedEdit;
 
         // Add Speaker
@@ -104,11 +104,11 @@ class AnnounceList extends React.Component {
                     <Col>
                         <Card>
                             <Card.Header>
-                                <Card.Title as="h5">Liste des announce</Card.Title>
+                                <Card.Title as="h5">Liste des annonces</Card.Title>
                                 {/* {this.renderRedirectCreate('/admin/announce/creer')} */}
                                 {addAnnouce()}
                                 <Button variant="success" onClick={this.setRedirectCreate}>
-                                    + Créer un nouveau announce
+                                    + Créer une nouvelle annonce
                                 </Button>
                             </Card.Header>
                             <Card.Body>
@@ -116,14 +116,14 @@ class AnnounceList extends React.Component {
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nom</th>
-                                        <th>Duration</th>
-                                        <th>Type d'assocation</th>
-                                        <th>Region</th>
+                                        <th>Titre de l'annonce</th>
+                                        <th>Durée d'affichage</th>
+                                        <th>Type d'association</th>
+                                        <th>Région</th>
                                         <th>Ville</th>
-                                        <th>Catérgorie age</th>
-                                        <th>Lien announce portable</th>
-                                        <th>Lien announce ordinateur</th>
+                                        <th>Catérgorie d'age</th>
+                                        <th>Lien de l'annonce pour le mobile</th>
+                                        <th>Lien de l'annonce pour le site</th>
                                         {col}
                                     </tr>
                                     </thead>

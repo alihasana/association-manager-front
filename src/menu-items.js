@@ -69,10 +69,10 @@ function sidebarAuthorization(){
                 icon: 'feather icon-calendar',
             },
             {
-                id: 'announce',
-                title: 'Announce',
+                id: 'annonce',
+                title: 'Annonce',
                 type: 'item',
-                url: '/sadmin/announces',
+                url: '/sadmin/annonces',
                 icon: 'feather icon-calendar',
             }
         ]

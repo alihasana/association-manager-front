@@ -41,8 +41,8 @@ class AnnounceCreate extends React.Component {
         // Start Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
         const isAdmin = window.location.href.indexOf("/admin") !== -1
         //Create
-        let adminLink = this.renderRedirect('/admin/announces')
-        let superAdminLink = this.renderRedirect('/sadmin/announces')
+        let adminLink = this.renderRedirect('/admin/annonces')
+        let superAdminLink = this.renderRedirect('/sadmin/annonces')
         let redirectUser;
 
         // Edit Project
@@ -63,7 +63,7 @@ class AnnounceCreate extends React.Component {
                     <Col>
                         <Card>
                             <Card.Header>
-                                <Card.Title as="h5">Création d'un nouveau announce</Card.Title>
+                                <Card.Title as="h5">Création d'un nouveau annonce</Card.Title>
                             </Card.Header>
                             <Card.Body>
                                 <Row>
@@ -71,7 +71,7 @@ class AnnounceCreate extends React.Component {
                                         <Form>
                                             <Form.Group controlId="lastName">
                                                 <Form.Label>Nom</Form.Label>
-                                                <Form.Control type="text" placeholder="Le nom de l'announce" />
+                                                <Form.Control type="text" placeholder="Le nom de l'annonce" />
                                                 <Form.Text className="text-muted">
                                                 </Form.Text>
                                             </Form.Group>
@@ -87,15 +87,15 @@ class AnnounceCreate extends React.Component {
                                             <Form.Group controlId="assocationType">
                                                 <Form.Label>Type d'assocation</Form.Label>
                                                 <Form.Control as="select" multiple>
-                                                    <option>Sportif</option>
-                                                    <option>Religious</option>
+                                                    <option>Sportive</option>
+                                                    <option>Réligieuse</option>
                                                     <option>Humanitaire</option>
                                                     <option>Culturelle</option>
                                                 </Form.Control>
                                             </Form.Group>
 
                                             <Form.Group controlId="region">
-                                                <Form.Label>Selectionne de region</Form.Label>
+                                                <Form.Label>Sélectionnez une région</Form.Label>
                                                 <RegionDropdown
                                                     country={this.state.country}
                                                     value={this.state.region}
@@ -103,7 +103,7 @@ class AnnounceCreate extends React.Component {
                                             </Form.Group>
 
                                             <Form.Group controlId="ville">
-                                                <Form.Label>Selectionne de ville</Form.Label>
+                                                <Form.Label>Sélectionnez une ville</Form.Label>
                                                 <Form.Control as="select" multiple>
                                                     <option>Evry</option>
                                                     <option>Paris 77émé</option>
@@ -113,7 +113,7 @@ class AnnounceCreate extends React.Component {
                                             </Form.Group>
 
                                             <Form.Group controlId="age">
-                                                <Form.Label>Selectionne de catérgorie d'age</Form.Label>
+                                                <Form.Label>Sélectionnez une catérgorie d'age</Form.Label>
                                                 <Form.Control as="select" multiple>
                                                     <option>Evry</option>
                                                     <option>Paris 77émé</option>
@@ -123,30 +123,30 @@ class AnnounceCreate extends React.Component {
                                             </Form.Group>
 
                                             <Form.Group controlId="formBasicEmail">
-                                                <Form.Label>Ajoutée Announce Portable</Form.Label>
+                                                <Form.Label>Ajoutez une annonce pour le mobile</Form.Label>
                                                 <Form.Control
                                                     type="file"
                                                     ref={this.textInput}
                                                     onClick={this.focusTextInput}
-                                                    placeholder="L'Ajoutée announce pour Portable" />
+                                                    placeholder="Ajoutez une annonce pour le mobile" />
                                                 <Form.Text className="text-muted">
                                                 </Form.Text>
                                             </Form.Group>
 
                                             <Form.Group controlId="formBasicEmail">
-                                                <Form.Label>Ajoutée Announce ordinateur</Form.Label>
+                                                <Form.Label>Ajoutez une annonce pour le site</Form.Label>
                                                 <Form.Control
                                                     type="file"
                                                     ref={this.textInput}
                                                     onClick={this.focusTextInput}
-                                                    placeholder="L'Ajoutée announce pour ordinateur" />
+                                                    placeholder="Ajoutez une annonce pour le site" />
                                                 <Form.Text className="text-muted">
                                                 </Form.Text>
                                             </Form.Group>
 
                                             {redirectLink()}
                                             <Button variant="primary" onClick={this.setRedirect}>
-                                            Submit
+                                            Créer
                                             </Button>
                                         </Form>
                                     </Col>
