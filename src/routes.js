@@ -16,8 +16,11 @@ const StaffsList = React.lazy(() => import('./components/Staff/StaffsList'));
 const StaffCreate = React.lazy(() => import('./components/Staff/StaffCreate'));
 const StaffEdit = React.lazy(() => import('./components/Staff/StaffEdit'));
 const TransactionsList = React.lazy(() => import('./components/Transaction/TransactionsList'));
+const AnnounceList = React.lazy(() => import('./components/Announce/AnnounceList'));
+const AnnounceCreate = React.lazy(() => import('./components/Announce/AnnounceCreate'));
+const AnnounceEdit = React.lazy(() => import('./components/Announce/AnnounceEdit'));
 // En cours
-const Planning = React.lazy(() => import('./components/Planning/List'));
+const PlanningList = React.lazy(() => import('./components/Planning/List'));
 const PlanningCreate = React.lazy(() => import('./components/Planning/Create'));
 const ProjectsList = React.lazy(() => import('./components/Project/ProjectsList'));
 
@@ -45,7 +48,8 @@ const routes = [
     { path: '/sadmin/staffs', exact: true, name: 'Liste des staffs', component: StaffsList },
     { path: '/sadmin/transactions', exact: true, name: 'Liste des transactions', component: TransactionsList },
     { path: '/sadmin/projets', exact: true, name: 'Liste des transactions', component: ProjectsList },
-    { path: '/sadmin/plannings', exact: true, name: 'Planning', component: Planning },
+    { path: '/sadmin/plannings', exact: true, name: 'Planning', component: PlanningList },
+    { path: '/sadmin/announces', exact: true, name: 'Planning', component: AnnounceList },
 
     // ADMIN
     { path: '/admin', exact: true, name: 'Dashboard', component: Dashboard },
@@ -56,7 +60,8 @@ const routes = [
     { path: '/admin/staffs', exact: true, name: 'Liste des staffs', component: StaffsList },
     { path: '/admin/transactions', exact: true, name: 'Liste des transactions', component: TransactionsList },
     { path: '/admin/projets', exact: true, name: 'Liste des transactions', component: ProjectsList },
-    { path: '/admin/plannings', exact: true, name: 'Planning', component: Planning },
+    { path: '/admin/plannings', exact: true, name: 'Planning', component: PlanningList },
+    { path: '/admin/announces', exact: true, name: 'Planning', component: AnnounceList },
 
     // MEMBRE
     { path: '/membre', exact: true, name: 'Dashboard', component: Dashboard },
@@ -71,6 +76,7 @@ const routes = [
     { path: '/admin/staffs/creer', exact: true, name: 'Création de staff', component: StaffCreate },
     { path: '/admin/intervenants/creer', exact: true, name: 'Créer des intervenants', component: SpeakerCreate },
     { path: '/admin/plannings/creer', exact: true, name: 'Création de Planning', component: PlanningCreate },
+    { path: '/admin/announces/creer', exact: true, name: 'Création de Planning', component: AnnounceCreate },
 
         //sadmin
     { path: '/sadmin/membres/creer', exact: true, name: 'Création de membre', component: MemberCreate },
@@ -80,6 +86,7 @@ const routes = [
     { path: '/sadmin/staffs/creer', exact: true, name: 'Création de staff', component: StaffCreate },
     { path: '/sadmin/intervenants/creer', exact: true, name: 'Créer des intervenants', component: SpeakerCreate },
     { path: '/sadmin/plannings/creer', exact: true, name: 'Création de Planning', component: PlanningCreate },
+    { path: '/sadmin/announces/creer', exact: true, name: 'Création de Planning', component: AnnounceCreate },
 
     // BACKEND FORMS EDIT
         //admin
@@ -88,6 +95,7 @@ const routes = [
     { path: '/admin/membres/modifier', exact: true, name: 'Modification de membre', component: MemberEdit },
     { path: '/admin/projets/modifier', exact: true, name: 'Modification de projet', component: ProjectEdit },
     { path: '/admin/intervenants/modifier', exact: true, name: 'Modifier des intervenants', component: SpeakerEdit },
+    { path: '/admin/announces/modifier', exact: true, name: 'Modifier des intervenants', component: AnnounceEdit },
 
         //sadmin
     { path: '/sadmin/membres/modifier', exact: true, name: 'Modification de membre', component: MemberEdit },
@@ -96,6 +104,7 @@ const routes = [
     { path: '/sadmin/associations/modifier', exact: true, name: 'Modification d\'une association', component: AssociationEdit },
     { path: '/sadmin/projets/modifier', exact: true, name: 'Modification de projet', component: ProjectEdit },
     { path: '/sadmin/intervenants/modifier', exact: true, name: 'Modifier des intervenants', component: SpeakerEdit },
+    { path: '/sadmin/announces/modifier', exact: true, name: 'Modifier des intervenants', component: AnnounceEdit },
 ];
 
 export default routes;

@@ -67,6 +67,13 @@ function sidebarAuthorization(){
                 type: 'item',
                 url: '/sadmin/plannings',
                 icon: 'feather icon-calendar',
+            },
+            {
+                id: 'announce',
+                title: 'Announce',
+                type: 'item',
+                url: '/sadmin/announces',
+                icon: 'feather icon-calendar',
             }
         ]
     }
@@ -134,6 +141,13 @@ function sidebarAuthorization(){
                 title: 'Planning',
                 type: 'item',
                 url: '/admin/plannings',
+                icon: 'feather icon-calendar',
+            },
+            {
+                id: 'announce',
+                title: 'Announce',
+                type: 'item',
+                url: '/admin/announces',
                 icon: 'feather icon-calendar',
             }
         ]
