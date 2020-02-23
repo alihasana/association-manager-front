@@ -10,8 +10,8 @@ const Announce = ({ details, onDelete, onEdit, isAdminOrSuperAdmin }) => (
         <td>{details.region}</td>
         <td>{details.ville}</td>
         <td>{details.age}</td>
-        <td>{details.linkMobile}</td>
-        <td>{details.linkComputer}</td>
+        <td><a href={details.linkMobile}>Image</a></td>
+        <td><a href={details.linkComputer}>Image</a></td>
         {(isAdminOrSuperAdmin) ? (
             <td>
                 <GroupButton
