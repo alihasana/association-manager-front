@@ -8,6 +8,8 @@ import App from './App/index';
 import * as serviceWorker from './serviceWorker';
 import reducer from './store/reducer';
 import config from './config';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const store = createStore(reducer);
 
@@ -17,6 +19,7 @@ const app = (
             {/* basename="/datta-able" */}
             <App />
         </BrowserRouter>
+        <ToastContainer />
     </Provider>
 );
 

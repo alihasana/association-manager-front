@@ -5,6 +5,7 @@ import Aux from "../../../hoc/_Aux";
 import Breadcrumb from "../../../App/layout/AdminLayout/Breadcrumb";
 import Field from "../../Forms/Field";
 import AuthAPI from "../../../services/AuthAPI";
+import { toast } from "react-toastify";
 
 class SignUp1 extends React.Component {
 
@@ -40,9 +41,7 @@ class SignUp1 extends React.Component {
             this.setState({error :""});
             this.setState({isAuthenticated :true});
         } catch (error) {
-            this.setState({
-                error: "Vérifiez vos identifiants de connexion !"
-            });
+            toast.error("Vérifiez vos identifiants de connexion !");
         }
     };
 
@@ -77,7 +76,6 @@ class SignUp1 extends React.Component {
                                         value={this.state.username}
                                         onChange={this.handleChange}
                                         placeholder="Email"
-                                        error={this.state.error}
                                     />
                                 </div>
                                 <div className="input-group mb-4">
