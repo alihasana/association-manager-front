@@ -25,7 +25,7 @@ class SignUp1 extends React.Component {
         if(!this.state.showPassword) this.setState({
                 showPassword : true,
                 showPasswordIcon: 'feather icon-eye-off'
-            })
+            });
         else this.setState({
                 showPassword : false,
                 showPasswordIcon: 'feather icon-eye'
@@ -41,7 +41,7 @@ class SignUp1 extends React.Component {
             this.setState({isAuthenticated :true});
         } catch (error) {
             this.setState({
-                error: "Aucun compte ne possède cette adresse email ou alors les informations ne correspondent pas !"
+                error: "Vérifiez vos identifiants de connexion !"
             });
         }
     };
