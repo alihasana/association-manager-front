@@ -1,11 +1,52 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
 
 import './../../../assets/scss/style.scss';
 import Aux from "../../../hoc/_Aux";
 import Breadcrumb from "../../../App/layout/AdminLayout/Breadcrumb";
+import Field from "../../Forms/Field";
+import AuthAPI from "../../../services/AuthAPI";
 
 class SignUp1 extends React.Component {
+
+    state = {
+        username: "",
+        password: "",
+        showPassword: false,
+        showPasswordIcon: 'feather icon-eye',
+        isAuthenticated :false
+    };
+
+    handleChange = ({ currentTarget }) => {
+        const { value, name } = currentTarget;
+        this.setState({ [name]: value });
+    };
+
+    togglePasswordVisibility = () => {
+        if(!this.state.showPassword) this.setState({
+                showPassword : true,
+                showPasswordIcon: 'feather icon-eye-off'
+            })
+        else this.setState({
+                showPassword : false,
+                showPasswordIcon: 'feather icon-eye'
+            })
+    };
+
+    handleSubmit = async event => {
+        event.preventDefault();
+
+        try {
+            await AuthAPI.authenticate(this.state.username, this.state.password);
+            this.setState({error :""});
+            this.setState({isAuthenticated :true});
+        } catch (error) {
+            this.setState({
+                error: "Aucun compte ne possède cette adresse email ou alors les informations ne correspondent pas !"
+            });
+        }
+    };
+
+
     render () {
         return(
             <Aux>
@@ -19,27 +60,55 @@ class SignUp1 extends React.Component {
                             <span className="r"/>
                         </div>
                         <div className="card">
-                            <div className="card-body text-center">
+                            <form
+                                onSubmit={this.handleSubmit}
+                                className="card-body text-center"
+                            >
                                 <div className="mb-4">
                                     <i className="feather icon-unlock auth-icon"/>
                                 </div>
                                 <h3 className="mb-4">Login</h3>
                                 <div className="input-group mb-3">
-                                    <input type="email" className="form-control" placeholder="Email"/>
+                                    <Field
+                                        label="Adresse email"
+                                        labelClassName = "sr-only sr-only-focusable"
+                                        name="username"
+                                        type= "email"
+                                        value={this.state.username}
+                                        onChange={this.handleChange}
+                                        placeholder="Email"
+                                        error={this.state.error}
+                                    />
                                 </div>
                                 <div className="input-group mb-4">
-                                    <input type="password" className="form-control" placeholder="password"/>
+                                    <Field
+                                        label="Mot de passe"
+                                        labelClassName = "sr-only sr-only-focusable"
+                                        name="password"
+                                        type= {(this.state.showPassword)? "text": "password"}
+                                        value={this.state.password}
+                                        onChange={this.handleChange}
+                                        placeholder="Mot de passe"
+                                    />
+
+                                    <div className="input-group-append"
+                                         style={{cursor: "pointer"}}
+                                         onClick={this.togglePasswordVisibility}>
+                                        <div className="input-group-text" >
+                                            <i className={this.state.showPasswordIcon}/>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="form-group text-left">
+                                {/*<div className="form-group text-left">
                                     <div className="checkbox checkbox-fill d-inline">
                                         <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" />
                                             <label htmlFor="checkbox-fill-a1" className="cr"> Save credentials</label>
                                     </div>
-                                </div>
-                                <button className="btn btn-primary shadow-2 mb-4"><NavLink to="/sadmin">Se connecter</NavLink></button>
+                                </div>*/}
+                                <button className="btn btn-primary shadow-2 mb-4">Se connecter</button>
                                 {/* <p className="mb-2 text-muted">Forgot password? <NavLink to="/auth/reset-password-1">Reset</NavLink></p>
                                 <p className="mb-0 text-muted">Don’t have an account? <NavLink to="/auth/signup-1">Signup</NavLink></p> */}
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
