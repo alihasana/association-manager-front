@@ -1,5 +1,5 @@
-import React, { Component, Suspense } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, {Component, Suspense, useState} from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
 import '../../node_modules/font-awesome/scss/font-awesome.scss';
@@ -8,6 +8,25 @@ import Loader from './layout/Loader'
 import Aux from "../hoc/_Aux";
 import ScrollToTop from './layout/ScrollToTop';
 import routes from "../route";
+import AuthAPI from "../services/AuthAPI";
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+    let [isAuthenticated] = useState(AuthAPI.isAuthenticated) ;
+    return (
+        <Route {...rest} render={props => {
+            return (
+                isAuthenticated ? (
+                        <Component {...props}/>
+                ) : (
+                    <Redirect to={{
+                        pathname: '/auth/signin-1',
+                        state: { from: props.location }
+                    }}/>
+                )
+            )
+        }}/>
+    )
+}
 
 const AdminLayout = Loadable({
     loader: () => import('./layout/AdminLayout'),
@@ -35,7 +54,7 @@ class App extends Component {
                     <Suspense fallback={<Loader/>}>
                         <Switch>
                             {menu}
-                            <Route path="/" component={AdminLayout} />
+                            <PrivateRoute path="/" component={AdminLayout} />
                         </Switch>
                     </Suspense>
                 </ScrollToTop>
