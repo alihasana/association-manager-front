@@ -40,6 +40,8 @@ class SignUp1 extends React.Component {
             await AuthAPI.authenticate(this.state.username, this.state.password);
             this.setState({error :""});
             this.setState({isAuthenticated :true});
+            // TODO: need to change depends on user role
+            this.props.history.push('/sadmin')
         } catch (error) {
             toast.error("Vérifiez vos identifiants de connexion !");
         }
