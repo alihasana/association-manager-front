@@ -3,6 +3,7 @@ import {Row, Col, Card, Form, Button} from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
 import Aux from "../../hoc/_Aux";
 import Dropzone from "./../General/Dropzone";
+import {toast} from "react-toastify";
 
 class Create extends React.Component {
 
@@ -23,20 +24,35 @@ class Create extends React.Component {
         }
     };
 
-    onDrop = (acceptedFiles) => {
-        acceptedFiles.forEach((file) => {
-            const reader = new FileReader();
-            reader.onabort = () => console.log('file reading was aborted');
-            reader.onerror = () => console.log('file reading has failed');
-            reader.readAsArrayBuffer(file);
-        })
-
-        const productImages = this.state.productImages;
-        const images = [...productImages, ...acceptedFiles]
+    onDrop = async (acceptedFiles) => {
+        let images = [];
+        if ( this.state.productImages.length !== 0) {
+            let imageNotFound = false;
+            for (const file of acceptedFiles) {
+                for (const fileInFiles of this.state.productImages) {
+                    if (fileInFiles.path !== file.path) {
+                        imageNotFound = true;
+                    } else {
+                        imageNotFound = false;
+                        console.log('else')
+                        toast.error("Le nom du fichier doit être unique !");
+                    }
+                    if (!imageNotFound) {
+                        break;
+                    }
+                }
+            }
+            if (imageNotFound) {
+                images = [...this.state.productImages, ...acceptedFiles]
+            } else {
+                images = this.state.productImages;
+            }
+        } else {
+            images = [...this.state.productImages, ...acceptedFiles]
+        }
         this.setState({
             productImages: images
         })
-        console.log(this.state.productImages)
         return this.state.productImages
     };
 
@@ -110,7 +126,9 @@ class Create extends React.Component {
                                                 </Form.Text>
                                             </Form.Group>
                                             <Form.Group controlId="productMainImage">
-                                                <Dropzone onDrop={this.onDrop} accept={"image/*"} singleOrMultiple={"mutiple"}/>
+                                                <Form.Label>Ajouter des images de produits</Form.Label>
+                                                <Dropzone onDrop={this.onDrop} accept={"image/*"}
+                                                          singleOrMultiple={"mutiple"}/>
                                                 {this.state.productImages.length === 0 ? '' : listOfFile}
                                             </Form.Group>
                                             {redirectLink()}
