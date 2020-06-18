@@ -1,26 +1,44 @@
 import React from 'react';
 import {Row, Col, Card, Form, Button} from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import Aux from "../../hoc/_Aux";
+import Dropzone from "./../General/Dropzone";
 
 class Create extends React.Component {
 
     state = {
-        redirect: false
-      };
-
+        redirect: false,
+        productImages: []
+    };
 
     setRedirect = () => {
         this.setState({
-          redirect: true
+            redirect: true
         })
-      }
+    };
 
-      renderRedirect = (url) => {
+    renderRedirect = (url) => {
         if (this.state.redirect) {
-          return <Redirect to={url} />
+            return <Redirect to={url}/>
         }
-      };
+    };
+
+    onDrop = (acceptedFiles) => {
+        acceptedFiles.forEach((file) => {
+            const reader = new FileReader();
+            reader.onabort = () => console.log('file reading was aborted');
+            reader.onerror = () => console.log('file reading has failed');
+            reader.readAsArrayBuffer(file);
+        })
+
+        const productImages = this.state.productImages;
+        const images = [...productImages, ...acceptedFiles]
+        this.setState({
+            productImages: images
+        })
+        console.log(this.state.productImages)
+        return this.state.productImages
+    };
 
     render() {
 
@@ -30,11 +48,16 @@ class Create extends React.Component {
         let adminLink = this.renderRedirect('/admin/projets')
         let superAdminLink = this.renderRedirect('/sadmin/projets')
         let redirectUser;
+        let listOfFile = this.state.productImages.map(file => (
+            <li key={file.path}>
+                {file.path} - {file.size} bytes
+            </li>
+        ));
 
         // Edit Project
-        function redirectLink(){
+        function redirectLink() {
 
-            if(isAdmin){
+            if (isAdmin) {
                 redirectUser = adminLink
                 // editLink = this.renderRedirectEdit('/admin/projets/modifier')
             } else {
@@ -87,17 +110,12 @@ class Create extends React.Component {
                                                 </Form.Text>
                                             </Form.Group>
                                             <Form.Group controlId="productMainImage">
-                                                <Form.Label>Image</Form.Label>
-                                                <Form.Control
-                                                    name="images[]" type="file" multiple onChange={this.handlePhotos}
-                                                    placeholder="Ajouté les image"
-                                                />
-                                                <Form.Text className="text-muted">
-                                                </Form.Text>
+                                                <Dropzone onDrop={this.onDrop} accept={"image/*"} singleOrMultiple={"mutiple"}/>
+                                                {this.state.productImages.length === 0 ? '' : listOfFile}
                                             </Form.Group>
                                             {redirectLink()}
                                             <Button variant="primary" onClick={this.setRedirect}>
-                                            Submit
+                                                Submit
                                             </Button>
                                         </Form>
                                     </Col>
