@@ -22,12 +22,12 @@ const activeStyle = {
     borderColor: "#2196f3"
 };
 
-const acceptStyle = {
-    borderColor: "#00e676"
-};
-
 const rejectStyle = {
     borderColor: "#ff1744"
+};
+/*
+const acceptStyle = {
+    borderColor: "#00e676"
 };
 
 const thumbsContainer = {
@@ -60,6 +60,7 @@ const img = {
     width: "auto",
     height: "100%"
 };
+*/
 
 const getClassName = (className, isActive) => {
     if (!isActive) return className;
@@ -72,7 +73,6 @@ const Dropzone = ({onDrop, accept, singleOrMultiple}) => {
         getRootProps,
         getInputProps,
         isDragActive,
-        isDragAccept,
         isDragReject,} = useDropzone({
         onDrop,
         singleOrMultiple ,
@@ -82,7 +82,6 @@ const Dropzone = ({onDrop, accept, singleOrMultiple}) => {
         () => ({
             ...baseStyle,
             ...(isDragActive ? activeStyle : {}),
-            ...(isDragAccept ? acceptStyle : {}),
             ...(isDragReject ? rejectStyle : {})
         }),
         [isDragActive, isDragReject]
