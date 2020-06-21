@@ -4,12 +4,16 @@ import {Redirect} from 'react-router-dom';
 import Aux from "../../hoc/_Aux";
 import Dropzone from "./../General/Dropzone";
 import {toast} from "react-toastify";
+import {storage} from "../../services/Firebase";
+
 
 class Create extends React.Component {
 
     state = {
         redirect: false,
-        productImages: []
+        productImages: [],
+        progress: {},
+        urls: [],
     };
 
     setRedirect = () => {
@@ -24,7 +28,39 @@ class Create extends React.Component {
         }
     };
 
-    onDrop = async (acceptedFiles) => {
+    uploadFile = (image) => {
+        console.log(image)
+        const uploadTask = storage.ref(`images/${image.name}`).put(image);
+        let urls = []
+        uploadTask.on(
+            "state_changed",
+            snapshot => {
+                console.log(snapshot.bytesTransferred);
+                const progress = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+                let progressState = this.state.progress
+                let addProgress = {...progressState, ...{[image.name]:progress}}
+                this.setState({progress: addProgress })
+            },
+            error => {
+                console.log(error);
+            },
+            () => {
+                storage
+                    .ref("images")
+                    .child(image.name)
+                    .getDownloadURL()
+                    .then(url => {
+                        console.log(url)
+                        urls = [...this.state.urls, ...url]
+                        this.setState({urls: urls })
+                    });
+            }
+        );
+    };
+
+    onDrop = (acceptedFiles) => {
         let images = [];
         if ( this.state.productImages.length !== 0) {
             let imageNotFound = false;
@@ -43,11 +79,13 @@ class Create extends React.Component {
                 }
             }
             if (imageNotFound) {
+                this.uploadFile(acceptedFiles[0]);
                 images = [...this.state.productImages, ...acceptedFiles]
             } else {
                 images = this.state.productImages;
             }
         } else {
+            this.uploadFile(acceptedFiles[0]);
             images = [...this.state.productImages, ...acceptedFiles]
         }
         this.setState({
