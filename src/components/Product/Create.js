@@ -12,8 +12,12 @@ class Create extends React.Component {
     state = {
         redirect: false,
         productImages: [],
+        mainImage: [],
+        thumbnail: [],
         progress: {},
-        urls: [],
+        urlsImages: [],
+        urlThumbnail: '',
+        urlMainImage: '',
     };
 
     setRedirect = () => {
@@ -28,7 +32,7 @@ class Create extends React.Component {
         }
     };
 
-    uploadFile = (image) => {
+    uploadFile = (image, type) => {
         console.log(image)
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
         let urls = []
@@ -53,14 +57,46 @@ class Create extends React.Component {
                     .getDownloadURL()
                     .then(url => {
                         console.log(url)
-                        urls = [...this.state.urls, ...url]
-                        this.setState({urls: urls })
+                        if(type === "images") {
+                            urls = [...this.state.urlsImages, ...url]
+                            this.setState({urlsImages: urls})
+                        }
+                        if(type === "mainImage") {
+                            this.setState({urlMainImage: url})
+                        }
+                        if(type === "thumbnail") {
+                            this.setState({urlThumbnail: url})
+                        }
                     });
             }
         );
     };
 
-    onDrop = (acceptedFiles) => {
+    mainImage = (acceptedFiles) => {
+        if ( this.state.mainImage.length === 1) {
+            toast.error("Une seule image pouvant être ajoutée ici !");
+        } else {
+            this.uploadFile(acceptedFiles[0], 'mainImage');
+            this.setState({
+                mainImage: acceptedFiles
+            })
+        }
+
+    };
+
+    thumbnail = (acceptedFiles) => {
+        if ( this.state.thumbnail.length === 1) {
+            toast.error("Une seule image miniature pouvant être ajoutée ici !");
+        } else {
+            this.uploadFile(acceptedFiles[0], 'thumbnail');
+            this.setState({
+                thumbnail: acceptedFiles
+            })
+        }
+
+    };
+
+    images = (acceptedFiles) => {
         let images = [];
         if ( this.state.productImages.length !== 0) {
             let imageNotFound = false;
@@ -79,13 +115,13 @@ class Create extends React.Component {
                 }
             }
             if (imageNotFound) {
-                this.uploadFile(acceptedFiles[0]);
+                this.uploadFile(acceptedFiles[0], 'images');
                 images = [...this.state.productImages, ...acceptedFiles]
             } else {
                 images = this.state.productImages;
             }
         } else {
-            this.uploadFile(acceptedFiles[0]);
+            this.uploadFile(acceptedFiles[0], 'images');
             images = [...this.state.productImages, ...acceptedFiles]
         }
         this.setState({
@@ -95,18 +131,26 @@ class Create extends React.Component {
     };
 
     render() {
-
+        let state = this.state;
         // Start Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
         const isAdmin = window.location.href.indexOf("/admin") !== -1
         //Create
         let adminLink = this.renderRedirect('/admin/projets')
         let superAdminLink = this.renderRedirect('/sadmin/projets')
         let redirectUser;
-        let listOfFile = this.state.productImages.map(file => (
+        let listOfFile = state.productImages.map(file => (
             <li key={file.path}>
                 {file.path} - {file.size} bytes
             </li>
         ));
+        let file = (file) => {
+            console.log(file)
+            return (
+                <li key={file.path}>
+                    {file.path} - {file.size} bytes
+                </li>
+            );
+        }
 
         // Edit Project
         function redirectLink() {
@@ -144,16 +188,30 @@ class Create extends React.Component {
                                                 </Form.Text>
                                             </Form.Group>
 
-
                                             <Form.Group controlId="productStatus">
-                                                <Form.Label>Statut</Form.Label>
+                                                <Form.Label>Sélectionne de statut</Form.Label>
+                                                <Form.Control as="select">
+                                                    <option defaultValue="1">Actif</option>
+                                                    <option value="0">Inactif</option>
+                                                </Form.Control>
+                                            </Form.Group>
+
+                                            <Form.Group controlId="productQuantity">
+                                                <Form.Label>Quantité</Form.Label>
                                                 <Form.Control
                                                     type="text"
-                                                    placeholder="Le  statut du projet"
+                                                    placeholder="La quantité de produit"
                                                 />
-                                                <Form.Text className="text-muted">
-                                                </Form.Text>
                                             </Form.Group>
+
+                                            <Form.Group controlId="productPrice">
+                                                <Form.Label>Prix</Form.Label>
+                                                <Form.Control
+                                                    type="text"
+                                                    placeholder="le prix du produit"
+                                                />
+                                            </Form.Group>
+
                                             <Form.Group controlId="productCategory">
                                                 <Form.Label>Category de produit</Form.Label>
                                                 <Form.Control
@@ -164,10 +222,22 @@ class Create extends React.Component {
                                                 </Form.Text>
                                             </Form.Group>
                                             <Form.Group controlId="productMainImage">
+                                                <Form.Label>Image principale</Form.Label>
+                                                <Dropzone onDrop={this.mainImage} accept={"image/*"}
+                                                          multiple={false}/>
+                                                {state.mainImage.length === 0 ? '' : file(state.mainImage[0])}
+                                            </Form.Group>
+                                            <Form.Group controlId="productMainImageThumbnail">
+                                                <Form.Label>Miniature de l'image principale</Form.Label>
+                                                <Dropzone onDrop={this.thumbnail} accept={"image/*"}
+                                                          multiple={false}/>
+                                                {state.thumbnail.length === 0 ? '' : file(state.thumbnail[0])}
+                                            </Form.Group>
+                                            <Form.Group controlId="productOtherImages">
                                                 <Form.Label>Ajouter des images de produits</Form.Label>
-                                                <Dropzone onDrop={this.onDrop} accept={"image/*"}
-                                                          singleOrMultiple={"mutiple"}/>
-                                                {this.state.productImages.length === 0 ? '' : listOfFile}
+                                                <Dropzone onDrop={this.images} accept={"image/*"}
+                                                          multiple={true}/>
+                                                {state.productImages.length === 0 ? '' : listOfFile}
                                             </Form.Group>
                                             {redirectLink()}
                                             <Button variant="primary" onClick={this.setRedirect}>

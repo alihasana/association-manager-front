@@ -98,10 +98,11 @@ const Dropzone = ({onDrop, accept, singleOrMultiple}) => {
                 <input className="dropzone-input" {...getInputProps()} />
                 <div className="text-center">
                     {isDragActive ? (
-                        <p className="dropzone-content">Release to drop the files here</p>
+                        <p className="dropzone-content">Faites glisser et déposez certains fichiers ici</p>
                     ) : (
                         <p className="dropzone-content">
-                            Drag 'n' drop some files here, or click to select files
+                            Faites glisser et déposez certains fichiers ici, <br/>
+                            ou cliquez pour sélectionner des fichiers
                         </p>
                     )}
                 </div>
