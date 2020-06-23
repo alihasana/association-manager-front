@@ -5,6 +5,7 @@ import Aux from "../../hoc/_Aux";
 import Dropzone from "./../General/Dropzone";
 import {toast} from "react-toastify";
 import {storage} from "../../services/Firebase";
+import Joi from "@hapi/joi"
 
 
 class Create extends React.Component {
@@ -47,13 +48,16 @@ class Create extends React.Component {
     };
     handleChange = async (e) => {
         const target = e.target;
-        const id = target.id;
-        const value = target.value;
-        console.log('value :', value);
-        console.log('id :', id);
+        const inputId = target.id;
+        const inputValue = target.value;
+        console.log('value :', inputValue);
+        console.log('id :', inputId);
 
-        if(id === 'productName'){
-            if(value === '' ){
+        if(inputId === 'productName'){
+            let {error, value} = Joi.string().min(2).max(50).required().validate(inputValue)
+            console.log('error' , error)
+            console.log('value' , value)
+            if(error){
                 await this.setState({
                     name: '',
                     errorName: "Required"
@@ -67,11 +71,11 @@ class Create extends React.Component {
         }
 
         if(this.state.errorName === ''){
-            this.setState({
+            await this.setState({
                 isDisabled: false
             })
         } else {
-            this.setState({
+            await this.setState({
                 isDisabled: true
             })
         }
