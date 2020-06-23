@@ -55,12 +55,10 @@ class Create extends React.Component {
 
         if(inputId === 'productName'){
             let {error, value} = Joi.string().min(2).max(150).required().validate(inputValue)
-            console.log('error' , error)
-            console.log('value' , value)
             if(error){
                 await this.setState({
                     name: '',
-                    errorName: "Required"
+                    errorName: "Le nom du produit est obligatoire. Le texte doit contenir moins de 100 caractères et plus de 2 caractères"
                 })
             } else {
                 await this.setState({
@@ -197,7 +195,7 @@ class Create extends React.Component {
                 </li>
             );
         let feedback = (errorMessage) => (
-                <div>
+                <div style={{color:'#db2269', fontSize: '15px', display: 'relative'}}>
                     {errorMessage}
                 </div>
             );
@@ -234,9 +232,7 @@ class Create extends React.Component {
                                                     placeholder="Le nom du produit"
                                                     onChange={this.handleChange}
                                                 />
-                                                <Form.Text  className="text-muted">
                                                     {state.errorName ? feedback(state.errorName): ''}
-                                                </Form.Text>
                                             </Form.Group>
 
                                             <Form.Group controlId="productStatus">
