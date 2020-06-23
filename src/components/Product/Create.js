@@ -18,6 +18,20 @@ class Create extends React.Component {
         urlsImages: [],
         urlThumbnail: '',
         urlMainImage: '',
+        name: '',
+        status: '',
+        quantity: '',
+        Price: '',
+        category: '',
+        errorName: '',
+        errorStatus: '',
+        errorQuantity: '',
+        errorPrice: '',
+        errorCategory: '',
+        errorMainImage: '',
+        errorMainImageThumbnail: '',
+        errorOtherImages: '',
+        isDisabled: true,
     };
 
     setRedirect = () => {
@@ -31,6 +45,37 @@ class Create extends React.Component {
             return <Redirect to={url}/>
         }
     };
+    handleChange = async (e) => {
+        const target = e.target;
+        const id = target.id;
+        const value = target.value;
+        console.log('value :', value);
+        console.log('id :', id);
+
+        if(id === 'productName'){
+            if(value === '' ){
+                await this.setState({
+                    name: '',
+                    errorName: "Required"
+                })
+            } else {
+                await this.setState({
+                    errorName: '',
+                    name: value
+                })
+            }
+        }
+
+        if(this.state.errorName === ''){
+            this.setState({
+                isDisabled: false
+            })
+        } else {
+            this.setState({
+                isDisabled: true
+            })
+        }
+    }
 
     uploadFile = (image, type) => {
         console.log(image)
@@ -97,7 +142,7 @@ class Create extends React.Component {
     };
 
     images = (acceptedFiles) => {
-        let images = [];
+        let images;
         if ( this.state.productImages.length !== 0) {
             let imageNotFound = false;
             for (const file of acceptedFiles) {
@@ -151,10 +196,14 @@ class Create extends React.Component {
                 </li>
             );
         }
+        let feedback = (errorMessage) => (
+                <div>
+                    {errorMessage}
+                </div>
+            );
 
         // Edit Project
-        function redirectLink() {
-
+        let redirectLink = () => {
             if (isAdmin) {
                 redirectUser = adminLink
                 // editLink = this.renderRedirectEdit('/admin/projets/modifier')
@@ -183,8 +232,10 @@ class Create extends React.Component {
                                                 <Form.Control
                                                     type="text"
                                                     placeholder="Le nom du produit"
+                                                    onChange={this.handleChange}
                                                 />
-                                                <Form.Text className="text-muted">
+                                                <Form.Text  className="text-muted">
+                                                    {state.errorName ? feedback(state.errorName): ''}
                                                 </Form.Text>
                                             </Form.Group>
 
@@ -240,7 +291,7 @@ class Create extends React.Component {
                                                 {state.productImages.length === 0 ? '' : listOfFile}
                                             </Form.Group>
                                             {redirectLink()}
-                                            <Button variant="primary" onClick={this.setRedirect}>
+                                            <Button disabled={this.state.isDisabled} variant="primary" onClick={this.setRedirect}>
                                                 Submit
                                             </Button>
                                         </Form>
