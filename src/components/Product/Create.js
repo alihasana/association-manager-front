@@ -54,7 +54,7 @@ class Create extends React.Component {
         console.log('id :', inputId);
 
         if(inputId === 'productName'){
-            let {error, value} = Joi.string().min(2).max(50).required().validate(inputValue)
+            let {error, value} = Joi.string().min(2).max(150).required().validate(inputValue)
             console.log('error' , error)
             console.log('value' , value)
             if(error){
@@ -65,11 +65,11 @@ class Create extends React.Component {
             } else {
                 await this.setState({
                     errorName: '',
-                    name: value
+                    name: value.replace(/<[^>]+>/g, '')
                 })
             }
         }
-
+        console.log(this.state.name);
         if(this.state.errorName === ''){
             await this.setState({
                 isDisabled: false
@@ -155,7 +155,6 @@ class Create extends React.Component {
                         imageNotFound = true;
                     } else {
                         imageNotFound = false;
-                        console.log('else')
                         toast.error("Le nom du fichier doit être unique !");
                     }
                     if (!imageNotFound) {
@@ -192,14 +191,11 @@ class Create extends React.Component {
                 {file.path} - {file.size} bytes
             </li>
         ));
-        let file = (file) => {
-            console.log(file)
-            return (
+        let file = (file) => (
                 <li key={file.path}>
                     {file.path} - {file.size} bytes
                 </li>
             );
-        }
         let feedback = (errorMessage) => (
                 <div>
                     {errorMessage}
