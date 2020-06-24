@@ -20,11 +20,13 @@ class Create extends React.Component {
         urlThumbnail: '',
         urlMainImage: '',
         name: '',
+        description: '',
         status: '',
         quantity: '',
         Price: '',
         category: '',
         errorName: '',
+        errorDescription: '',
         errorStatus: '',
         errorQuantity: '',
         errorPrice: '',
@@ -233,6 +235,16 @@ class Create extends React.Component {
                                                     onChange={this.handleChange}
                                                 />
                                                     {state.errorName ? feedback(state.errorName): ''}
+                                            </Form.Group>
+
+                                            <Form.Group controlId="productDescription">
+                                                <Form.Label>Description</Form.Label>
+                                                <Form.Control
+                                                    as="textarea" rows="3"
+                                                    placeholder="La description du produit"
+                                                    onChange={this.handleChange}
+                                                />
+                                                {state.errorDescription ? feedback(state.errorDescription): ''}
                                             </Form.Group>
 
                                             <Form.Group controlId="productStatus">
