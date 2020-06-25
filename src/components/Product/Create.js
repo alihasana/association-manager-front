@@ -55,30 +55,63 @@ class Create extends React.Component {
         console.log('value :', inputValue);
         console.log('id :', inputId);
 
-        if(inputId === 'productName'){
-            let {error, value} = Joi.string().min(2).max(150).required().validate(inputValue)
-            if(error){
-                await this.setState({
-                    name: '',
-                    errorName: "Le nom du produit est obligatoire. Le texte doit contenir moins de 100 caractères et plus de 2 caractères"
-                })
-            } else {
-                await this.setState({
-                    errorName: '',
-                    name: value.replace(/<[^>]+>/g, '')
-                })
-            }
-        }
-        console.log(this.state.name);
-        if(this.state.errorName === ''){
-            await this.setState({
-                isDisabled: false
+        if (inputId === 'productName') {
+            let {error, value} = Joi.string().min(2).max(150).required().validate(inputValue);
+            (error || value.replace(/<[^>]+>|\s/g, '') === '') ? await this.setState({
+                name: '',
+                errorName: "Le nom du produit est obligatoire. Le texte doit contenir moins de 100 caractères et plus de 2 caractères"
+            }) : await this.setState({
+                errorName: '',
+                name: (value.replace(/<[^>]+>/g, '')).trim()
             })
-        } else {
-            await this.setState({
-                isDisabled: true
-            })
+            console.log(this.state.name);
         }
+        if (inputId === 'productDescription') {
+            let {error, value} = Joi.string().min(10).required().validate(inputValue);
+            (error || value.replace(/<[^>]+>|\s/g, '') === '') ? await this.setState({
+                description: '',
+                errorDescription: "La description du produit est obligatoire. Le texte doit comporter plus de 10 caractères"
+            }) : await this.setState({
+                errorDescription: '',
+                description: (value.replace(/<[^>]+>/g, '')).trim()
+            });
+            console.log(value.replace(/<[^>]+>/g, ''));
+        }
+
+        if (inputId === 'productQuantity') {
+            console.log(inputValue);
+            let {error, value} = Joi.number().max(10000).required().validate(inputValue);
+            console.log(error);
+            console.log(value);
+            (error ||(value % 1)) ? await this.setState({
+                quantity: '',
+                errorQuantity: "La quantité doit être inférieure à 10000 et aucune décimale n'est autorisée"
+            }) : await this.setState({
+                errorQuantity: '',
+                quantity: value
+            });
+        }
+        if (inputId === 'productPrice') {
+            console.log(inputValue);
+            let {error, value} = Joi.number().max(1000).required().validate(inputValue);
+            console.log(error);
+            console.log(value);
+            (error) ? await this.setState({
+                price: '',
+                errorPrice: "Le prix du produit doit être inférieur à 1000 euros"
+            }) : await this.setState({
+                errorPrice: '',
+                price: value
+            });
+        }
+        (
+            this.state.name === '' || this.state.description === '' ||
+            this.state.quantity === '' || this.state.price === ''
+        ) ? await this.setState({
+            isDisabled: true
+        }) : await this.setState({
+            isDisabled: false
+        })
     }
 
     uploadFile = (image, type) => {
@@ -93,8 +126,8 @@ class Create extends React.Component {
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                 );
                 let progressState = this.state.progress
-                let addProgress = {...progressState, ...{[image.name]:progress}}
-                this.setState({progress: addProgress })
+                let addProgress = {...progressState, ...{[image.name]: progress}}
+                this.setState({progress: addProgress})
             },
             error => {
                 console.log(error);
@@ -106,14 +139,14 @@ class Create extends React.Component {
                     .getDownloadURL()
                     .then(url => {
                         console.log(url)
-                        if(type === "images") {
+                        if (type === "images") {
                             urls = [...this.state.urlsImages, ...url]
                             this.setState({urlsImages: urls})
                         }
-                        if(type === "mainImage") {
+                        if (type === "mainImage") {
                             this.setState({urlMainImage: url})
                         }
-                        if(type === "thumbnail") {
+                        if (type === "thumbnail") {
                             this.setState({urlThumbnail: url})
                         }
                     });
@@ -122,7 +155,7 @@ class Create extends React.Component {
     };
 
     mainImage = (acceptedFiles) => {
-        if ( this.state.mainImage.length === 1) {
+        if (this.state.mainImage.length === 1) {
             toast.error("Une seule image pouvant être ajoutée ici !");
         } else {
             this.uploadFile(acceptedFiles[0], 'mainImage');
@@ -134,7 +167,7 @@ class Create extends React.Component {
     };
 
     thumbnail = (acceptedFiles) => {
-        if ( this.state.thumbnail.length === 1) {
+        if (this.state.thumbnail.length === 1) {
             toast.error("Une seule image miniature pouvant être ajoutée ici !");
         } else {
             this.uploadFile(acceptedFiles[0], 'thumbnail');
@@ -147,7 +180,7 @@ class Create extends React.Component {
 
     images = (acceptedFiles) => {
         let images;
-        if ( this.state.productImages.length !== 0) {
+        if (this.state.productImages.length !== 0) {
             let imageNotFound = false;
             for (const file of acceptedFiles) {
                 for (const fileInFiles of this.state.productImages) {
@@ -192,15 +225,15 @@ class Create extends React.Component {
             </li>
         ));
         let file = (file) => (
-                <li key={file.path}>
-                    {file.path} - {file.size} bytes
-                </li>
-            );
+            <li key={file.path}>
+                {file.path} - {file.size} bytes
+            </li>
+        );
         let feedback = (errorMessage) => (
-                <div style={{color:'#db2269', fontSize: '15px', display: 'relative'}}>
-                    {errorMessage}
-                </div>
-            );
+            <div style={{color: '#db2269', fontSize: '15px', display: 'relative'}}>
+                {errorMessage}
+            </div>
+        );
 
         // Edit Project
         let redirectLink = () => {
@@ -234,7 +267,7 @@ class Create extends React.Component {
                                                     placeholder="Le nom du produit"
                                                     onChange={this.handleChange}
                                                 />
-                                                    {state.errorName ? feedback(state.errorName): ''}
+                                                {state.errorName ? feedback(state.errorName) : ''}
                                             </Form.Group>
 
                                             <Form.Group controlId="productDescription">
@@ -244,7 +277,7 @@ class Create extends React.Component {
                                                     placeholder="La description du produit"
                                                     onChange={this.handleChange}
                                                 />
-                                                {state.errorDescription ? feedback(state.errorDescription): ''}
+                                                {state.errorDescription ? feedback(state.errorDescription) : ''}
                                             </Form.Group>
 
                                             <Form.Group controlId="productStatus">
@@ -256,19 +289,23 @@ class Create extends React.Component {
                                             </Form.Group>
 
                                             <Form.Group controlId="productQuantity">
-                                                <Form.Label>Quantité</Form.Label>
+                                                <Form.Label>Quantité <small> Aucune décimale n'est autorisée</small></Form.Label>
                                                 <Form.Control
-                                                    type="text"
+                                                    type="number"
                                                     placeholder="La quantité de produit"
+                                                    onChange={this.handleChange}
                                                 />
+                                                {state.errorQuantity ? feedback(state.errorQuantity) : ''}
                                             </Form.Group>
 
                                             <Form.Group controlId="productPrice">
-                                                <Form.Label>Prix</Form.Label>
+                                                <Form.Label>Prix <small>/ unité</small></Form.Label>
                                                 <Form.Control
-                                                    type="text"
+                                                    type="number"
                                                     placeholder="le prix du produit"
+                                                    onChange={this.handleChange}
                                                 />
+                                                {state.errorPrice ? feedback(state.errorPrice) : ''}
                                             </Form.Group>
 
                                             <Form.Group controlId="productCategory">
@@ -299,7 +336,8 @@ class Create extends React.Component {
                                                 {state.productImages.length === 0 ? '' : listOfFile}
                                             </Form.Group>
                                             {redirectLink()}
-                                            <Button disabled={this.state.isDisabled} variant="primary" onClick={this.setRedirect}>
+                                            <Button disabled={this.state.isDisabled} variant="primary"
+                                                    onClick={this.setRedirect}>
                                                 Submit
                                             </Button>
                                         </Form>
