@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-
+import api from "./api";
 
 /**s
  * Requête HTTP d'authentification et stockage du token dans le storage et sur Axios
@@ -8,8 +8,8 @@ import jwtDecode from "jwt-decode";
  * @param password string
  */
 function authenticate(username, password) {
-    return axios
-        .post("https://127.0.0.1:8000/api/login_check", {username, password})
+    return api
+        .post("login_check", {username, password})
         .then(response => response.data.token)
         .then(token => {
 
