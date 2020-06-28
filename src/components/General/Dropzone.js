@@ -1,6 +1,7 @@
 import React, {useMemo} from "react";
 // Import the useDropzone hooks from react-dropzone
 import {useDropzone} from "react-dropzone";
+import {Form} from "react-bootstrap";
 
 const baseStyle = {
     flex: 1,
@@ -67,15 +68,16 @@ const getClassName = (className, isActive) => {
     return `${className} ${className}-active`;
 };
 
-const Dropzone = ({onDrop, accept, singleOrMultiple}) => {
+const Dropzone = ({onDrop, accept, singleOrMultiple, formId, fieldName}) => {
     // Initializing useDropzone hooks with options
     const {
         getRootProps,
         getInputProps,
         isDragActive,
-        isDragReject,} = useDropzone({
+        isDragReject,
+    } = useDropzone({
         onDrop,
-        singleOrMultiple ,
+        singleOrMultiple,
         accept
     });
     const style = useMemo(
@@ -93,21 +95,24 @@ const Dropzone = ({onDrop, accept, singleOrMultiple}) => {
     */
 
     return (
-        <div className="container">
-            <div className={getClassName("dropzone", isDragActive)} {...getRootProps({style})}>
-                <input className="dropzone-input" {...getInputProps()} />
-                <div className="text-center">
-                    {isDragActive ? (
-                        <p className="dropzone-content">Faites glisser et déposez certains fichiers ici</p>
-                    ) : (
-                        <p className="dropzone-content">
-                            Faites glisser et déposez certains fichiers ici, <br/>
-                            ou cliquez pour sélectionner des fichiers
-                        </p>
-                    )}
+        <Form.Group controlId={formId}>
+            <Form.Label>{fieldName}</Form.Label>
+            <div className="container">
+                <div className={getClassName("dropzone", isDragActive)} {...getRootProps({style})}>
+                    <input className="dropzone-input" {...getInputProps()} id={formId}/>
+                    <div className="text-center" >
+                        {isDragActive ? (
+                            <p className="dropzone-content">Faites glisser et déposez certains fichiers ici</p>
+                        ) : (
+                            <p className="dropzone-content">
+                                Faites glisser et déposez certains fichiers ici, <br/>
+                                ou cliquez pour sélectionner des fichiers
+                            </p>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+        </Form.Group>
     );
 };
 
