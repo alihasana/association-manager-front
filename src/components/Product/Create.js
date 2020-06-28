@@ -3,7 +3,6 @@ import {Row, Col, Card, Form, Button} from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
 import Aux from "../../hoc/_Aux";
 import Dropzone from "./../General/Dropzone";
-import {toast} from "react-toastify";
 import {storage} from "../../services/Firebase";
 import Joi from "@hapi/joi"
 
@@ -12,9 +11,9 @@ class Create extends React.Component {
 
     state = {
         redirect: false,
-        productImages: [],
+        otherImages: [],
         mainImage: [],
-        thumbnail: [],
+        mainImageThumbnail: [],
         progress: {},
         urlsImages: [],
         urlThumbnail: '',
@@ -36,13 +35,11 @@ class Create extends React.Component {
         errorOtherImages: '',
         isDisabled: true,
     };
-
     setRedirect = () => {
         this.setState({
             redirect: true
         })
     };
-
     renderRedirect = (url) => {
         if (this.state.redirect) {
             return <Redirect to={url}/>
@@ -64,7 +61,6 @@ class Create extends React.Component {
                 errorName: '',
                 name: (value.replace(/<[^>]+>/g, '')).trim()
             })
-            console.log(this.state.name);
         }
         if (inputId === 'productDescription') {
             let {error, value} = Joi.string().min(10).required().validate(inputValue);
@@ -75,14 +71,9 @@ class Create extends React.Component {
                 errorDescription: '',
                 description: (value.replace(/<[^>]+>/g, '')).trim()
             });
-            console.log(value.replace(/<[^>]+>/g, ''));
         }
-
         if (inputId === 'productQuantity') {
-            console.log(inputValue);
             let {error, value} = Joi.number().max(10000).required().validate(inputValue);
-            console.log(error);
-            console.log(value);
             (error ||(value % 1)) ? await this.setState({
                 quantity: '',
                 errorQuantity: "La quantité doit être inférieure à 10000 et aucune décimale n'est autorisée"
@@ -92,10 +83,7 @@ class Create extends React.Component {
             });
         }
         if (inputId === 'productPrice') {
-            console.log(inputValue);
             let {error, value} = Joi.number().max(1000).required().validate(inputValue);
-            console.log(error);
-            console.log(value);
             (error) ? await this.setState({
                 price: '',
                 errorPrice: "Le prix du produit doit être inférieur à 1000 euros"
@@ -113,7 +101,6 @@ class Create extends React.Component {
             isDisabled: false
         })
     }
-
     uploadFile = (image, type) => {
         console.log(image)
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
@@ -121,7 +108,6 @@ class Create extends React.Component {
         uploadTask.on(
             "state_changed",
             snapshot => {
-                console.log(snapshot.bytesTransferred);
                 const progress = Math.round(
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                 );
@@ -130,6 +116,24 @@ class Create extends React.Component {
                 this.setState({progress: addProgress})
             },
             error => {
+                if(type === 'mainImage' ) {
+                    this.setState({
+                        mainImage: this.state.mainImage,
+                        errorMainImage: "Erreur interne trouvée, contactez l'administrateur"
+                    });
+                }
+                if(type === 'thumbnail' ) {
+                    this.setState({
+                        mainImageThumbnail: this.state.mainImageThumbnail,
+                        errorMainImageThumbnail: "Erreur interne trouvée, contactez l'administrateur"
+                    });
+                }
+                if(type === 'images' ) {
+                    this.setState({
+                        otherImages: this.state.otherImages,
+                        errorOtherImages: "Erreur interne trouvée, contactez l'administrateur"
+                    });
+                }
                 console.log(error);
             },
             () => {
@@ -153,63 +157,72 @@ class Create extends React.Component {
             }
         );
     };
-
-    mainImage = (acceptedFiles) => {
-        if (this.state.mainImage.length === 1) {
-            toast.error("Une seule image pouvant être ajoutée ici !");
+    mainImage = async (acceptedFiles) => {
+        console.log(acceptedFiles[0].size);
+        if (this.state.mainImage.length === 1 || acceptedFiles[0].size > 1048576) {
+            await this.setState({
+                mainImage: this.state.mainImage,
+                errorMainImage: "Une seule image peut être ajoutée ici et la taille de l'image doit être inférieure à 1 Mo !"
+            });
         } else {
             this.uploadFile(acceptedFiles[0], 'mainImage');
             this.setState({
+                errorMainImage: '',
                 mainImage: acceptedFiles
-            })
+            });
         }
 
     };
-
-    thumbnail = (acceptedFiles) => {
-        if (this.state.thumbnail.length === 1) {
-            toast.error("Une seule image miniature pouvant être ajoutée ici !");
+    mainImageThumbnail = (acceptedFiles) => {
+        if (this.state.mainImageThumbnail.length === 1 || acceptedFiles[0].size > 10000) {
+            this.setState({
+                mainImageThumbnail: this.state.mainImageThumbnail,
+                errorMainImageThumbnail: "Une seule image peut être ajoutée ici et la taille de l'image doit être inférieure à 10 Ko !"
+            });
         } else {
             this.uploadFile(acceptedFiles[0], 'thumbnail');
             this.setState({
-                thumbnail: acceptedFiles
-            })
+                errorMainImageThumbnail: '',
+                mainImageThumbnail: acceptedFiles
+            });
         }
-
     };
-
     images = (acceptedFiles) => {
-        let images;
-        if (this.state.productImages.length !== 0) {
-            let imageNotFound = false;
-            for (const file of acceptedFiles) {
-                for (const fileInFiles of this.state.productImages) {
-                    if (fileInFiles.path !== file.path) {
-                        imageNotFound = true;
-                    } else {
-                        imageNotFound = false;
-                        toast.error("Le nom du fichier doit être unique !");
-                    }
-                    if (!imageNotFound) {
-                        break;
+        if (acceptedFiles[0].size <= 1048576 ) {
+            let imageDuplicateNotFound = true;
+            if (this.state.otherImages.length !== 0) {
+                for (const file of acceptedFiles) {
+                    for (const fileInFiles of this.state.otherImages) {
+                        imageDuplicateNotFound = fileInFiles.path === file.path;
+                        if (imageDuplicateNotFound) {
+                            break;
+                        }
                     }
                 }
-            }
-            if (imageNotFound) {
-                this.uploadFile(acceptedFiles[0], 'images');
-                images = [...this.state.productImages, ...acceptedFiles]
+                if (!imageDuplicateNotFound) {
+                    this.uploadFile(acceptedFiles[0], 'images');
+                    this.updateOtherImages([...this.state.otherImages, ...acceptedFiles], '')
+                } else {
+                    this.updateOtherImages(
+                        this.state.otherImages,
+                        'Le nom du fichier doit être unique !')
+                }
             } else {
-                images = this.state.productImages;
+                this.uploadFile(acceptedFiles[0], 'images');
+                this.updateOtherImages([...this.state.otherImages, ...acceptedFiles], '')
             }
         } else {
-            this.uploadFile(acceptedFiles[0], 'images');
-            images = [...this.state.productImages, ...acceptedFiles]
+            this.updateOtherImages(
+                this.state.otherImages,
+                "la taille de l'image doit être inférieure à 1 Mo !" )
         }
-        this.setState({
-            productImages: images
-        })
-        return this.state.productImages
     };
+    updateOtherImages = (images, message) => {
+         this.setState({
+            otherImages: images,
+            errorOtherImages: message
+        });
+    }
 
     render() {
         let state = this.state;
@@ -219,7 +232,7 @@ class Create extends React.Component {
         let adminLink = this.renderRedirect('/admin/projets')
         let superAdminLink = this.renderRedirect('/sadmin/projets')
         let redirectUser;
-        let listOfFile = state.productImages.map(file => (
+        let listOfFile = state.otherImages.map(file => (
             <li key={file.path}>
                 {file.path} - {file.size} bytes
             </li>
@@ -232,9 +245,10 @@ class Create extends React.Component {
         let feedback = (errorMessage) => (
             <div style={{color: '#db2269', fontSize: '15px', display: 'relative'}}>
                 {errorMessage}
+            <br/>
+            <br/>
             </div>
         );
-
         // Edit Project
         let redirectLink = () => {
             if (isAdmin) {
@@ -245,9 +259,7 @@ class Create extends React.Component {
             }
             return redirectUser
         }
-
         // End Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
-
         return (
             <Aux>
                 <Row>
@@ -317,24 +329,32 @@ class Create extends React.Component {
                                                 <Form.Text className="text-muted">
                                                 </Form.Text>
                                             </Form.Group>
-                                            <Form.Group controlId="productMainImage">
-                                                <Form.Label>Image principale</Form.Label>
-                                                <Dropzone onDrop={this.mainImage} accept={"image/*"}
-                                                          multiple={false}/>
+                                            <Dropzone
+                                                    onDrop={this.mainImage}
+                                                    accept={"image/*"}
+                                                    multiple={false}
+                                                    formId={"productMainImage"}
+                                                    fieldName={"Image principale"}
+                                                />
                                                 {state.mainImage.length === 0 ? '' : file(state.mainImage[0])}
-                                            </Form.Group>
-                                            <Form.Group controlId="productMainImageThumbnail">
-                                                <Form.Label>Miniature de l'image principale</Form.Label>
-                                                <Dropzone onDrop={this.thumbnail} accept={"image/*"}
-                                                          multiple={false}/>
-                                                {state.thumbnail.length === 0 ? '' : file(state.thumbnail[0])}
-                                            </Form.Group>
-                                            <Form.Group controlId="productOtherImages">
-                                                <Form.Label>Ajouter des images de produits</Form.Label>
-                                                <Dropzone onDrop={this.images} accept={"image/*"}
-                                                          multiple={true}/>
-                                                {state.productImages.length === 0 ? '' : listOfFile}
-                                            </Form.Group>
+                                                {state.errorMainImage ? feedback(state.errorMainImage) : ''}
+                                            <Dropzone onDrop={this.mainImageThumbnail}
+                                                          accept={"image/*"}
+                                                          multiple={false}
+                                                          formId={"productMainImageThumbnail"}
+                                                          fieldName={"Miniature de l'image principale"}
+                                                />
+                                            {state.mainImageThumbnail.length === 0 ? '' : file(state.mainImageThumbnail[0])}
+                                            {state.errorMainImageThumbnail ? feedback(state.errorMainImageThumbnail) : ''}
+                                            <Dropzone
+                                                onDrop={this.images}
+                                                accept={"image/*"}
+                                                multiple={true}
+                                                formId={"productOtherImages"}
+                                                fieldName={"Ajouter des images de produits"}
+                                            />
+                                            {state.otherImages.length === 0 ? '' : listOfFile}
+                                            {state.errorOtherImages ? feedback(state.errorOtherImages) : ''}
                                             {redirectLink()}
                                             <Button disabled={this.state.isDisabled} variant="primary"
                                                     onClick={this.setRedirect}>
