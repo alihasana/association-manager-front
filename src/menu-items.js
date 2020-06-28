@@ -74,6 +74,13 @@ function sidebarAuthorization(){
                 type: 'item',
                 url: '/sadmin/annonces',
                 icon: 'feather icon-calendar',
+            },
+            {
+                id: 'product',
+                title: 'Product',
+                type: 'item',
+                url: '/sadmin/products',
+                icon: 'feather icon-shopping-bag',
             }
         ]
     }

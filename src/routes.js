@@ -24,6 +24,10 @@ const PlanningList = React.lazy(() => import('./components/Planning/List'));
 const PlanningCreate = React.lazy(() => import('./components/Planning/Create'));
 const ProjectsList = React.lazy(() => import('./components/Project/ProjectsList'));
 
+const ProductCreate = React.lazy(() => import('./components/Product/Create'));
+const ProductsList = React.lazy(() => import('./components/Product/List'));
+const ProductEdit = React.lazy(() => import('./components/Product/Edit'));
+
 // FORMS INC
 const MemberCreate = React.lazy(() => import('./components/Member/MemberCreate'));
 const MemberEdit = React.lazy(() => import('./components/Member/MemberEdit'));
@@ -50,6 +54,7 @@ const routes = [
     { path: '/sadmin/projets', exact: true, name: 'Liste des transactions', component: ProjectsList },
     { path: '/sadmin/plannings', exact: true, name: 'Planning', component: PlanningList },
     { path: '/sadmin/annonces', exact: true, name: 'Planning', component: AnnounceList },
+    { path: '/sadmin/products', exact: true, name: 'Product', component: ProductsList },
 
     // ADMIN
     { path: '/admin', exact: true, name: 'Dashboard', component: Dashboard },
@@ -62,6 +67,7 @@ const routes = [
     { path: '/admin/projets', exact: true, name: 'Liste des transactions', component: ProjectsList },
     { path: '/admin/plannings', exact: true, name: 'Planning', component: PlanningList },
     { path: '/admin/annonces', exact: true, name: 'Planning', component: AnnounceList },
+
 
     // MEMBRE
     { path: '/membre', exact: true, name: 'Dashboard', component: Dashboard },
@@ -87,6 +93,7 @@ const routes = [
     { path: '/sadmin/intervenants/creer', exact: true, name: 'Créer des intervenants', component: SpeakerCreate },
     { path: '/sadmin/plannings/creer', exact: true, name: 'Création de Planning', component: PlanningCreate },
     { path: '/sadmin/annonces/creer', exact: true, name: 'Création de Planning', component: AnnounceCreate },
+    { path: '/sadmin/products/creer', exact: true, name: 'Création de Planning', component: ProductCreate },
 
     // BACKEND FORMS EDIT
         //admin
@@ -105,6 +112,7 @@ const routes = [
     { path: '/sadmin/projets/modifier', exact: true, name: 'Modification de projet', component: ProjectEdit },
     { path: '/sadmin/intervenants/modifier', exact: true, name: 'Modifier des intervenants', component: SpeakerEdit },
     { path: '/sadmin/annonces/modifier', exact: true, name: 'Modifier des intervenants', component: AnnounceEdit },
+    { path: '/sadmin/products/modifier', exact: true, name: 'Modifier des intervenants', component: ProductEdit },
 ];
 
 export default routes;
