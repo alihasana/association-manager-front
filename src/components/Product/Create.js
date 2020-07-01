@@ -4,7 +4,8 @@ import {Redirect} from 'react-router-dom';
 import Aux from "../../hoc/_Aux";
 import Dropzone from "./../General/Dropzone";
 import {storage} from "../../services/Firebase";
-import Joi from "@hapi/joi"
+import Joi from "@hapi/joi";
+import axios from "axios";
 
 
 class Create extends React.Component {
@@ -22,7 +23,7 @@ class Create extends React.Component {
         description: '',
         status: '',
         quantity: '',
-        Price: '',
+        price: '',
         category: '',
         errorName: '',
         errorDescription: '',
@@ -35,10 +36,57 @@ class Create extends React.Component {
         errorOtherImages: '',
         isDisabled: true,
     };
-    setRedirect = () => {
+    createProduct = async () => {
+        let product = {}
+        product.name = this.state.name;
+        product.description = this.state.description;
+        product.mainImage = this.state.urlMainImage;
+        product.quantity = this.state.quantity;
+        product.price = this.state.price;
+        product.mainImageThumbnail = this.state.urlThumbnail;
+        product.images = this.state.urlsImages
+        console.log('product :');
+        console.log(product);
+        let query = `
+                  mutation
+                        {
+                          createProduct(
+                            name: "${product.name}",
+                            description: "${product.description}",
+                            quantity: ${product.quantity},
+                            mainImageUrl: "${product.mainImage}",
+                            mainThumbnailUrl: "${product.mainImageThumbnail}",
+                            images: ${JSON.stringify(this.state.urlsImages)},
+                            price: ${product.price},
+                            vat: 2.2,
+                            associationId: 25,
+                          ){
+                            id,
+                            name,
+                            description,
+                            mainImageUrl,
+                            mainThumbnailUrl,
+                            images,
+                            quantity,
+                            price,
+                            vat,
+                            createdAt,
+                            updatedAt
+                          }
+                        }
+                  `;
+        console.log(query);
+        await axios({
+            url: 'http://localhost:4000/graphql',
+            method: 'post',
+            data: {query}
+        }).then((result) => {
+            console.log(result)
+        });
         this.setState({
             redirect: true
         })
+        debugger;
     };
     renderRedirect = (url) => {
         if (this.state.redirect) {
@@ -104,7 +152,7 @@ class Create extends React.Component {
     uploadFile = (image, type) => {
         console.log(image)
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
-        let urls = []
+        let urls = this.state.urlsImages;
         uploadTask.on(
             "state_changed",
             snapshot => {
@@ -144,7 +192,7 @@ class Create extends React.Component {
                     .then(url => {
                         console.log(url)
                         if (type === "images") {
-                            urls = [...this.state.urlsImages, ...url]
+                            urls.push(url);
                             this.setState({urlsImages: urls})
                         }
                         if (type === "mainImage") {
@@ -357,7 +405,7 @@ class Create extends React.Component {
                                             {state.errorOtherImages ? feedback(state.errorOtherImages) : ''}
                                             {redirectLink()}
                                             <Button disabled={this.state.isDisabled} variant="primary"
-                                                    onClick={this.setRedirect}>
+                                                    onClick={this.createProduct}>
                                                 Submit
                                             </Button>
                                         </Form>

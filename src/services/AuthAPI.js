@@ -1,4 +1,3 @@
-import axios from "axios";
 import jwtDecode from "jwt-decode";
 import api from "./api";
 
@@ -25,7 +24,7 @@ function authenticate(username, password) {
  * @param {string} token Le token JWT
  */
 function setAxiosToken(token) {
-    axios.defaults.headers["Authorization"] = "Bearer " + token;
+    api.defaults.headers["Authorization"] = "Bearer " + token;
 }
 
 /**
@@ -60,7 +59,7 @@ function isAuthenticated() {
 
 function logout () {
     window.localStorage.removeItem("authToken");
-    delete axios.defaults.headers["Authorization"];
+    delete api.defaults.headers["Authorization"];
 }
 export default {
     authenticate,
