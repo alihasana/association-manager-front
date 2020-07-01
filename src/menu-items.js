@@ -80,7 +80,7 @@ function sidebarAuthorization(){
                 title: 'Product',
                 type: 'item',
                 url: '/sadmin/products',
-                icon: 'feather icon-shopping-bag',
+                icon: 'feather icon-shopping-cart',
             }
         ]
     }

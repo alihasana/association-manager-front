@@ -10,10 +10,8 @@ import reducer from './store/reducer';
 import config from './config';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AuthAPI from "./services/AuthAPI";
 
 const store = createStore(reducer);
-AuthAPI.setup();
 const app = (
     <Provider store={store}>
         <BrowserRouter basename={config.basename}>

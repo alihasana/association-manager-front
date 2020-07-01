@@ -9,7 +9,6 @@ import Aux from "../hoc/_Aux";
 import ScrollToTop from './layout/ScrollToTop';
 import routes from "../route";
 import AuthAPI from "../services/AuthAPI";
-
 const PrivateRoute = ({ component: Component, ...rest }) => {
     let [isAuthenticated] = useState(AuthAPI.isAuthenticated) ;
     return (
@@ -34,6 +33,10 @@ const AdminLayout = Loadable({
 });
 
 class App extends Component {
+    constructor() {
+        super();
+        AuthAPI.setup()
+    }
     render() {
         const menu = routes.map((route, index) => {
           return (route.component) ? (

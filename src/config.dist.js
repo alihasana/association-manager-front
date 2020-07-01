@@ -50,4 +50,6 @@ export default {
     messagingSenderId: "",
     appId: "",
     // Firebase credential - End
+    // api base url
+    baseUrl: 'https://localhost:8000/api/',
 };
