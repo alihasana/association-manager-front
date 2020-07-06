@@ -341,7 +341,7 @@ class Create extends React.Component {
                                             </Form.Group>
 
                                             <Form.Group controlId="productStatus">
-                                                <Form.Label>Sélectionne de statut</Form.Label>
+                                                <Form.Label>Sélectionnez de statut</Form.Label>
                                                 <Form.Control as="select">
                                                     <option defaultValue="1">Actif</option>
                                                     <option value="0">Inactif</option>
