@@ -51,5 +51,6 @@ export default {
     appId: "",
     // Firebase credential - End
     // api base url
-    baseUrl: 'https://localhost:8000/api/',
+    baseUrl: 'https://association-manager.go.yj.fr/api',
+    graphqlUrl: 'https://back-end-node-store.herokuapp.com/graphql'
 };

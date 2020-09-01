@@ -6,6 +6,7 @@ import Dropzone from "./../General/Dropzone";
 import {storage} from "../../services/Firebase";
 import Joi from "@hapi/joi";
 import axios from "axios";
+import config from "../../config";
 
 
 class Create extends React.Component {
@@ -76,17 +77,25 @@ class Create extends React.Component {
                         }
                   `;
         console.log(query);
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
+        headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+        headers.append('Access-Control-Allow-Credentials', 'true');
+        headers.append('X-Requested-With', 'XMLHttpRequest');
+        headers.append('GET', 'POST', 'OPTIONS');
         await axios({
-            url: 'http://localhost:4000/graphql',
+            url: config.graphqlUrl,
             method: 'post',
-            data: {query}
+            data: {query},
+            headers:headers,
         }).then((result) => {
             console.log(result)
+            this.renderRedirect('sadmin/products')
         });
         this.setState({
             redirect: true
         })
-        debugger;
     };
     renderRedirect = (url) => {
         if (this.state.redirect) {
@@ -277,8 +286,8 @@ class Create extends React.Component {
         // Start Vérification du rôle de l'utilisateur pour afficher ou masquer des éléments dans la page
         const isAdmin = window.location.href.indexOf("/admin") !== -1
         //Create
-        let adminLink = this.renderRedirect('/admin/projets')
-        let superAdminLink = this.renderRedirect('/sadmin/projets')
+        let adminLink = this.renderRedirect('/sadmin/products')
+        let superAdminLink = this.renderRedirect('/ssadmin/products')
         let redirectUser;
         let listOfFile = state.otherImages.map(file => (
             <li key={file.path}>
@@ -301,7 +310,7 @@ class Create extends React.Component {
         let redirectLink = () => {
             if (isAdmin) {
                 redirectUser = adminLink
-                // editLink = this.renderRedirectEdit('/admin/projets/modifier')
+                // editLink = this.renderRedirectEdit('/sadmin/products/modifier')
             } else {
                 redirectUser = superAdminLink
             }
@@ -355,7 +364,7 @@ class Create extends React.Component {
                                                     placeholder="La quantité de produit"
                                                     onChange={this.handleChange}
                                                 />
-                                                {state.errorQuantity ? feedback(state.errorQuantity) : ''}
+                                                    {state.errorQuantity ? feedback(state.errorQuantity) : ''}
                                             </Form.Group>
 
                                             <Form.Group controlId="productPrice">
@@ -404,7 +413,7 @@ class Create extends React.Component {
                                             {state.otherImages.length === 0 ? '' : listOfFile}
                                             {state.errorOtherImages ? feedback(state.errorOtherImages) : ''}
                                             {redirectLink()}
-                                            <Button disabled={this.state.isDisabled} variant="primary"
+                                                <Button disabled={this.state.isDisabled} variant="primary"
                                                     onClick={this.createProduct}>
                                                 Submit
                                             </Button>
